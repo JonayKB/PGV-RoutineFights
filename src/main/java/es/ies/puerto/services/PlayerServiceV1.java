@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("api/v1/player")
+@RequestMapping("/api/v1/players")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 
 public class PlayerServiceV1 {
@@ -35,7 +35,7 @@ public class PlayerServiceV1 {
         this.iPlayerController = iPlayerController;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<PlayerDto> getAll() {
         return iPlayerController.findAll();
     }
@@ -45,7 +45,7 @@ public class PlayerServiceV1 {
         return iPlayerController.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public PlayerDto save(@RequestBody PlayerDto entity) {
         return iPlayerController.save(entity);
     }

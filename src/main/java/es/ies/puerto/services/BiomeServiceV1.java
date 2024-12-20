@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("api/v1/biome")
+@RequestMapping("/api/v1/biomes")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 public class BiomeServiceV1 {
     IBiomeController iBiomeController;
@@ -38,7 +38,7 @@ public class BiomeServiceV1 {
         this.iBiomeController = iMobController;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<BiomeDto> getAll() {
         return iBiomeController.findAll();
     }
@@ -48,7 +48,7 @@ public class BiomeServiceV1 {
         return iBiomeController.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public BiomeDto save(@RequestBody BiomeDto entity) {
         return iBiomeController.save(entity);
     }

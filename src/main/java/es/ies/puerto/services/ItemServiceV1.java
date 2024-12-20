@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("api/v1/item")
+@RequestMapping("/api/v1/items")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 public class ItemServiceV1 {
     IItemController iItemController;
@@ -34,7 +34,7 @@ public class ItemServiceV1 {
         this.iItemController = iItemController;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<ItemDto> getAll() {
         return iItemController.findAll();
     }
@@ -44,7 +44,7 @@ public class ItemServiceV1 {
         return iItemController.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ItemDto save(@RequestBody ItemDto entity) {
         return iItemController.save(entity);
     }

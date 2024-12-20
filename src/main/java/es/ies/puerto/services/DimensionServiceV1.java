@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("api/v1/dimension")
+@RequestMapping("/api/v1/dimensions")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 
 public class DimensionServiceV1 {
@@ -41,7 +41,7 @@ public class DimensionServiceV1 {
         this.iDimensionController = iMobController;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<DimensionDto> getAll() {
         return iDimensionController.findAll();
     }
@@ -51,7 +51,7 @@ public class DimensionServiceV1 {
         return iDimensionController.findById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public DimensionDto save(@RequestBody DimensionDto entity) {
         return iDimensionController.save(entity);
     }

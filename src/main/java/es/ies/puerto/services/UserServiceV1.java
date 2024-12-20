@@ -5,10 +5,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.ies.puerto.api.dto.ItemDto;
-import es.ies.puerto.api.dto.MobDto;
-import es.ies.puerto.api.dto.PlayerDto;
-import es.ies.puerto.controller.interfaces.IMobController;
-import es.ies.puerto.controller.interfaces.IPlayerController;
+import es.ies.puerto.api.dto.UserDto;
+import es.ies.puerto.controller.interfaces.IUserController;
 
 import java.util.List;
 
@@ -22,38 +20,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/mobs")
+@RequestMapping("/api/v1/users")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 
-public class MobServiceV1 {
-    IMobController iMobController;
+public class UserServiceV1 {
+    IUserController iUserController;
 
-    public IMobController getIMobController() {
-        return this.iMobController;
+    public IUserController getIUserController() {
+        return this.iUserController;
     }
 
     @Autowired
-    public void setIMobController(IMobController iMobController) {
-        this.iMobController = iMobController;
+    public void setIUserController(IUserController iUserController) {
+        this.iUserController = iUserController;
     }
 
     @GetMapping
-    public List<MobDto> getAll() {
-        return iMobController.findAll();
+    public List<UserDto> getAll() {
+        return iUserController.findAll();
     }
 
     @GetMapping("/{id}")
-    public MobDto getById(@PathVariable(name = "id") final int id) {
-        return iMobController.findById(id);
+    public UserDto getById(@PathVariable(name = "id") final int id) {
+        return iUserController.findById(id);
     }
 
     @PostMapping
-    public MobDto save(@RequestBody MobDto entity) {
-        return iMobController.save(entity);
+    public UserDto save(@RequestBody UserDto entity) {
+        return iUserController.save(entity);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
-        iMobController.deleteById(id);
+        iUserController.deleteById(id);
     }
 }
