@@ -13,47 +13,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {PostMapper.class})
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(source = "rol.name", target = "rolName")
-    @Mapping(source = "posts", target = "postIds", qualifiedByName = "mapPostIds")
-    @Mapping(source = "badges", target = "badgeIds", qualifiedByName = "mapBadgeIds")
-    @Mapping(source = "activities", target = "activityIds", qualifiedByName = "mapActivityIds")
+
     UserDTO toDto(User user);
+    User toEntity(UserDTO userDTO);
 
-    @Named("mapPostIds")
-    default Set<Integer> mapPostIds(Set<Post> posts) {
-        Set<Integer> postsIds = new HashSet<>();
-        if (posts != null) {
-            for (Post post : posts) {
-                postsIds.add(post.getId());
-            }
-        }
-        return postsIds;
-
-    }
-
-    @Named("mapBadgeIds")
-    default Set<Integer> mapBadgeIds(Set<Badge> badges) {
-        Set<Integer> badgesIds = new HashSet<>();
-        if (badges != null) {
-            for (Badge badge : badges) {
-                badgesIds.add(badge.getId());
-            }
-        }
-        return badgesIds;
-    }
-
-    @Named("mapActivityIds")
-    default Set<Integer> mapActivityIds(Set<Activity> activities) {
-        Set<Integer> activitiesIds = new HashSet<>();
-        if (activities != null) {
-            for (Activity activity : activities) {
-                activitiesIds.add(activity.getId());
-            }
-        }
-        return activitiesIds;
-    }
 }
