@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player</title>
+    <link rel="stylesheet" href="../stlyes/pages.css">
+</head>
+
+<body>
+    <button id="getPlayers">Obtener Players</button><br><br>
+    <div id="players"></div>
+    <button id="getPlayerById">Obtener Player por Id</button>
+    <input type="number" name="idPlayer" id="idPlayer" placeholder="Id">
+    <div id="player"></div><br>
+    <input type="text" name="nickname" id="nickname" placeholder="Nickname"><br>
+    <input type="text" name="username" id="username" placeholder="Username"><br>
+    <input type="password" name="password" id="password" placeholder="Password"><br>
+    <input type="number" name="level" id="level" placeholder="Level"><br>
+    <input type="text" name="itemsIds" id="itemsIds" placeholder="ItemsIds (1,2,3)"><br>
+    <button id="postPlayer">Añadir Player</button><br><br>
+    <div id="playerPosted"></div><br>
+    <button id="deletePlayerById">Eliminar Player por Id</button>
+    <input type="text" name="idPlayerDelete" id="idPlayerDelete" placeholder="Id">
+
+    <script src="../scripts/player.js"></script>
+</body>
+
+</html>
