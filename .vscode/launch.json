@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RoutineFightsApplication<routineFights>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "es.ies.puerto.routineFights.RoutineFightsApplication",
+            "projectName": "routineFights",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
