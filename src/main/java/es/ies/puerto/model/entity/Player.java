@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,7 +25,7 @@ public class Player implements Serializable {
     private String password;
     private Integer level;
 
-    @ManyToMany(mappedBy = "players")
+    @ManyToMany(mappedBy = "players", fetch = FetchType.EAGER)
     private List<Item> items;
 
     public Player() {

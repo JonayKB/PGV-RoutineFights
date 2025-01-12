@@ -17,7 +17,9 @@ import es.ies.puerto.model.repository.IBiomeRepository;
 
 import es.ies.puerto.model.repository.IDimensionRepository;
 import es.ies.puerto.model.repository.IUserRepository;
+import lombok.extern.slf4j.Slf4j;
 import es.ies.puerto.model.entity.User;
+
 
 @Controller
 public class UserController implements IUserController {
@@ -38,9 +40,11 @@ public class UserController implements IUserController {
     public List<UserDto> findAll() {
         List<User> users = userRepository.findAll();
         List<UserDto> userDtos = new ArrayList<>();
+    
         for (User user : users) {
             userDtos.add(UserMapper.INSTANCE.toUserDto(user));
         }
+
         return userDtos;
     }
 

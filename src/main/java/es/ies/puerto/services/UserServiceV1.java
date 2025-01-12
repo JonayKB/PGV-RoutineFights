@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.api.dto.UserDto;
 import es.ies.puerto.controller.interfaces.IUserController;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
-
+@CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
 public class UserServiceV1 {
     IUserController iUserController;
+    Logger logger = Logger.getLogger(UserServiceV1.class.getName());
 
     public IUserController getIUserController() {
         return this.iUserController;
@@ -37,6 +39,7 @@ public class UserServiceV1 {
 
     @GetMapping
     public List<UserDto> getAll() {
+        logger.info("getAll");
         return iUserController.findAll();
     }
 
@@ -49,7 +52,6 @@ public class UserServiceV1 {
     public UserDto save(@RequestBody UserDto entity) {
         return iUserController.save(entity);
     }
-
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {

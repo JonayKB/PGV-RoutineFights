@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://cxf.apache.org/jaxws https://cxf.apache.org/schemas/jaxws.xsd">
+
+    <!-- Definición del servicio -->
+    <jaxws:endpoint id="userServiceEndpoint"
+        implementor="#userServiceImpl"
+        address="/users">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="rolServiceEndpoint"
+        implementor="#rolServiceImpl"
+        address="/roles">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="biomeServiceEndpoint"
+        implementor="#biomeServiceImpl"
+        address="/biomes">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="dimensionServiceEndpoint"
+        implementor="#dimensionServiceImpl"
+        address="/dimensions">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="itemServiceEndpoint"
+        implementor="#itemServiceImpl"
+        address="/items">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="mobServiceEndpoint"
+        implementor="#mobServiceImpl"
+        address="/mobs">
+    </jaxws:endpoint>
+    
+    <jaxws:endpoint id="playerServiceEndpoint"
+        implementor="#playerServiceImpl"
+        address="/players">
+    </jaxws:endpoint>
+
+
+    <!-- Bean del servicio implementado -->
+    <bean id="userServiceImpl" class="es.ies.puerto.soap.service.UserServiceSoapImpl" />
+    <bean id="rolServiceImpl" class="es.ies.puerto.soap.service.RolServiceSoapImpl" />
+    <bean id="biomeServiceImpl" class="es.ies.puerto.soap.service.BiomeServiceSoapImpl" />
+    <bean id="dimensionServiceImpl" class="es.ies.puerto.soap.service.DimensionServiceSoapImpl" />
+    <bean id="itemServiceImpl" class="es.ies.puerto.soap.service.ItemServiceSoapImpl" />
+    <bean id="mobServiceImpl" class="es.ies.puerto.soap.service.MobServiceSoapImpl" />
+    <bean id="playerServiceImpl" class="es.ies.puerto.soap.service.PlayerServiceSoapImpl" />
+
+
+</beans>
