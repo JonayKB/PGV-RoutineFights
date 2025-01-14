@@ -17,11 +17,12 @@ import es.ies.puerto.model.repository.IBiomeRepository;
 
 import es.ies.puerto.model.repository.IDimensionRepository;
 import es.ies.puerto.model.repository.IUserRepository;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import es.ies.puerto.model.entity.User;
 
-
 @Controller
+@Log
 public class UserController implements IUserController {
     private IUserRepository userRepository;
 
@@ -40,10 +41,11 @@ public class UserController implements IUserController {
     public List<UserDto> findAll() {
         List<User> users = userRepository.findAll();
         List<UserDto> userDtos = new ArrayList<>();
-    
+
         for (User user : users) {
             userDtos.add(UserMapper.INSTANCE.toUserDto(user));
         }
+        log.info("Users found: " + userDtos.size());
 
         return userDtos;
     }
@@ -54,18 +56,21 @@ public class UserController implements IUserController {
         if (!userOptional.isPresent()) {
             return new UserDto();
         }
+        log.info("User found: " + userOptional.get().getUsername());
         return UserMapper.INSTANCE.toUserDto(userOptional.get());
     }
 
     @Override
     public UserDto save(UserDto userDto) {
         User user = UserMapper.INSTANCE.toUser(userDto);
+        log.info("User saved: " + user.getUsername());
         return UserMapper.INSTANCE.toUserDto(userRepository.save(user));
     }
 
     @Override
     public void deleteById(Integer id) {
         userRepository.deleteById(id);
+        log.info("User deleted: " + id);
     }
 
 }

@@ -25,8 +25,10 @@ import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
+import lombok.extern.java.Log;
 
 @Controller
+@Log
 public class MobController implements IMobController {
     private IMobRepository iMobRepository;
     private IItemRepository iItemRepository;
@@ -68,6 +70,7 @@ public class MobController implements IMobController {
         for (Mob mob : mobs) {
             mobsDtos.add(MobMapper.INSTANCE.toMobDto(mob));
         }
+        log.info("Mobs found: " + mobsDtos.size());
         return mobsDtos;
     }
 
@@ -77,6 +80,7 @@ public class MobController implements IMobController {
         if (!mobOptional.isPresent()) {
             return new MobDto();
         }
+        log.info("Mob found: " + mobOptional.get().getName());
         return MobMapper.INSTANCE.toMobDto(mobOptional.get());
     }
 
@@ -113,12 +117,14 @@ public class MobController implements IMobController {
         }
         mob.setBiomes(biomes);
 
+        log.info("Mob saved: " + mob.getName());
         return MobMapper.INSTANCE.toMobDto(iMobRepository.save(mob));
     }
 
     @Override
     public void deleteById(Integer id) {
         iMobRepository.deleteById(id);
+        log.info("Mob deleted: " + id);
     }
 
 }

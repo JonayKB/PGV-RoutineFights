@@ -16,8 +16,10 @@ import es.ies.puerto.model.entity.Item;
 import es.ies.puerto.model.entity.Player;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
+import lombok.extern.java.Log;
 
 @Controller
+@Log
 public class PlayerController implements IPlayerController {
     private IPlayerRepository iPlayerRepository;
     private IItemRepository iItemRepository;
@@ -49,6 +51,7 @@ public class PlayerController implements IPlayerController {
         for (Player player : players) {
             itemDtos.add(PlayerMapper.INSTANCE.toPlayerDto(player));
         }
+        log.info("Players found: " + itemDtos.size());
         return itemDtos;
     }
 
@@ -58,6 +61,7 @@ public class PlayerController implements IPlayerController {
         if (!itemOptional.isPresent()) {
             return new PlayerDto();
         }
+        log.info("Player found: " + itemOptional.get().getNickname());
         return PlayerMapper.INSTANCE.toPlayerDto(itemOptional.get());
     }
 
@@ -78,12 +82,14 @@ public class PlayerController implements IPlayerController {
 
         }
         player.setItems(items);
+        log.info("Player saved: " + player.getNickname());
         return PlayerMapper.INSTANCE.toPlayerDto(iPlayerRepository.save(player));
     }
 
     @Override
     public void deleteById(Integer id) {
         iPlayerRepository.deleteById(id);
+        log.info("Player deleted: " + id);
     }
 
 

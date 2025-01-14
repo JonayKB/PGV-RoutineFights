@@ -1,6 +1,7 @@
 package es.ies.puerto.soap.service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +12,7 @@ import jakarta.jws.WebService;
 @WebService(endpointInterface = "es.ies.puerto.soap.service.RolServiceSoapInterface")
 public class RolServiceSoapImpl implements RolServiceSoapInterface {
     private RolController rolController;
+    private Logger logger = Logger.getLogger(RolServiceSoapImpl.class.getName());
 
     @Autowired
     public void setRolController(RolController rolController) {
@@ -29,6 +31,7 @@ public class RolServiceSoapImpl implements RolServiceSoapInterface {
 
     @Override
     public List<RolDto> getAll() {
+        logger.info("getAll");
         return rolController.findAll();
     }
 
