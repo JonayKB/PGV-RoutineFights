@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,10 +22,10 @@ public class Item implements Serializable {
     private Integer id;
     private String name;
 
-    @ManyToMany()
+    @ManyToMany( fetch = FetchType.EAGER)
     private List<Player> players;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Mob> mobs;
 
     public Item() {

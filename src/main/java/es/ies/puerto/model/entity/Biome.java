@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,10 +23,10 @@ public class Biome implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @ManyToMany(mappedBy = "biomes")
+    @ManyToMany(mappedBy = "biomes", fetch = FetchType.EAGER)
     private Set<Mob> spawnMobs;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     private Dimension dimension;
 
     public Biome() {

@@ -14,8 +14,10 @@ import es.ies.puerto.model.entity.Item;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
+import lombok.extern.java.Log;
 
 @Controller
+@Log
 public class ItemController implements IItemController {
     private IItemRepository iItemRepository;
     private IMobRepository iMobRepository;
@@ -61,6 +63,7 @@ public class ItemController implements IItemController {
         for (Item item : items) {
             itemDtos.add(ItemMapper.INSTANCE.toItemDto(item));
         }
+        log.info("Items found: " + itemDtos.size());
         return itemDtos;
     }
 
@@ -70,6 +73,7 @@ public class ItemController implements IItemController {
         if (!itemOptional.isPresent()) {
             return new ItemDto();
         }
+        log.info("Item found: " + itemOptional.get().getName());
         return ItemMapper.INSTANCE.toItemDto(itemOptional.get());
     }
 
@@ -78,12 +82,14 @@ public class ItemController implements IItemController {
         Item item = ItemMapper.INSTANCE.toItem(itemDto);
         item.setMobs(iMobRepository.findAllById(itemDto.getMobsIds()));
         item.setPlayers(iPlayerRepository.findAllById(itemDto.getPlayersIds()));
+        log.info("Item saved: " + item.getName());
         return ItemMapper.INSTANCE.toItemDto(iItemRepository.save(item));
     }
 
     @Override
     public void deleteById(Integer id) {
         iItemRepository.deleteById(id);
+        log.info("Item deleted: " + id);
     }
 
 }

@@ -29,30 +29,62 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BiomeServiceV1 {
     IBiomeController iBiomeController;
 
+    /**
+     * Get the IBiomeController
+     * 
+     * @return IBiomeController
+     */
     public IBiomeController getIBiomeController() {
         return this.iBiomeController;
     }
 
+    /**
+     * Set the IBiomeController
+     * 
+     * @param iBiomeController IBiomeController
+     */
     @Autowired
     public void setIIBiomeController(IBiomeController iMobController) {
         this.iBiomeController = iMobController;
     }
 
+    /**
+     * Find all biomes
+     * 
+     * @return list of BiomeDto
+     */
     @GetMapping
     public List<BiomeDto> getAll() {
         return iBiomeController.findAll();
     }
 
+    /**
+     * Find a biome by id
+     * 
+     * @param id biome id
+     * @return BiomeDto
+     */
     @GetMapping("/{id}")
     public BiomeDto getById(@PathVariable(name = "id") final int id) {
         return iBiomeController.findById(id);
     }
 
+    /**
+     * Save a biome
+     * 
+     * @param entity BiomeDto
+     * @return BiomeDto
+     */
     @PostMapping
     public BiomeDto save(@RequestBody BiomeDto entity) {
         return iBiomeController.save(entity);
     }
 
+    /**
+     * Delete a biome by id
+     * 
+     * @param id biome id
+     */
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
         iBiomeController.deleteById(id);

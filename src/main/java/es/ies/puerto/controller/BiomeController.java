@@ -14,8 +14,10 @@ import es.ies.puerto.model.entity.Biome;
 import es.ies.puerto.model.entity.Dimension;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IDimensionRepository;
+import lombok.extern.java.Log;
 
 @Controller
+@Log
 public class BiomeController implements IBiomeController {
     private IBiomeRepository iBiomeRepository;
     private IDimensionRepository iDimensionRepository;
@@ -49,6 +51,7 @@ public class BiomeController implements IBiomeController {
         for (Biome biome : biomes) {
             biomeDtos.add(BiomeMapper.INSTANCE.toBiomeDto(biome));
         }
+        log.info("Biomes found: " + biomeDtos.size());
         return biomeDtos;
     }
 
@@ -58,6 +61,7 @@ public class BiomeController implements IBiomeController {
         if (!biomeOptional.isPresent()) {
             return new BiomeDto();
         }
+        log.info("Biome found: " + biomeOptional.get().getName());
         return BiomeMapper.INSTANCE.toBiomeDto(biomeOptional.get());
     }
 
@@ -68,12 +72,14 @@ public class BiomeController implements IBiomeController {
         if (dimensionOptional.isPresent()) {
             biome.setDimension(dimensionOptional.get());
         }
+        log.info("Biome saved: " + biome.getName());
         return BiomeMapper.INSTANCE.toBiomeDto(iBiomeRepository.save(biome));
     }
 
     @Override
     public void deleteById(Integer id) {
         iBiomeRepository.deleteById(id);
+        log.info("Biome deleted: " + id);
     }
 
 }

@@ -129,9 +129,8 @@ El proyecto utiliza las siguientes tecnologías y herramientas:
 
 Estas herramientas trabajan en conjunto para garantizar un desarrollo eficiente, organizado y con buenas prácticas.
 
-...
+---
 
-Si necesitas algún ajuste adicional, no dudes en decírmelo. 😊
 ### Configuración
 1. Configura el archivo `application.properties` para conectar con tu base de datos:
 

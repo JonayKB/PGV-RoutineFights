@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +21,7 @@ public class Dimension implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @OneToMany(mappedBy = "dimension")
+    @OneToMany(mappedBy = "dimension",fetch = FetchType.EAGER)
     private Set<Biome> biomes;
 
     public Dimension() {

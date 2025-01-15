@@ -7,6 +7,7 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,10 +26,10 @@ public class Mob implements Serializable {
     private Integer baseAttack;
     private String specialAbility;
 
-    @ManyToMany(mappedBy = "mobs")
+    @ManyToMany(mappedBy = "mobs", fetch = FetchType.EAGER)
     private List<Item> dropList;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Biome> biomes;
 
     public Mob() {

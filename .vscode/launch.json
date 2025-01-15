@@ -19,6 +19,16 @@
             "projectName": "routineFights",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-FinalApplication<final>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "es.ies.puerto.FinalApplication",
+            "projectName": "final",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

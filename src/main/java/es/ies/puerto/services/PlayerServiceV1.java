@@ -26,31 +26,62 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PlayerServiceV1 {
     IPlayerController iPlayerController;
 
+    /**
+     * Get the IPlayerController
+     * 
+     * @return IPlayerController
+     */
     public IPlayerController getIPlayerController() {
         return this.iPlayerController;
     }
 
+    /**
+     * Set the IPlayerController
+     * 
+     * @param iPlayerController IPlayerController
+     */
     @Autowired
     public void setIPlayerController(IPlayerController iPlayerController) {
         this.iPlayerController = iPlayerController;
     }
 
+    /**
+     * Find all players
+     * 
+     * @return list of PlayerDto
+     */
     @GetMapping
     public List<PlayerDto> getAll() {
         return iPlayerController.findAll();
     }
 
+    /**
+     * Find a player by id
+     * 
+     * @param id player id
+     * @return PlayerDto
+     */
     @GetMapping("/{id}")
     public PlayerDto getById(@PathVariable(name = "id") final int id) {
         return iPlayerController.findById(id);
     }
 
+    /**
+     * Save a player
+     * 
+     * @param entity PlayerDto
+     * @return PlayerDto
+     */
     @PostMapping
     public PlayerDto save(@RequestBody PlayerDto entity) {
         return iPlayerController.save(entity);
     }
 
-
+    /**
+     * Delete a player by id
+     * 
+     * @param id player id
+     */
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
         iPlayerController.deleteById(id);
