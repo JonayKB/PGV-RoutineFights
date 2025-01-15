@@ -26,31 +26,63 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RolServiceV1 {
     IRolController iRolController;
 
+    /**
+     * Get the IRolController
+     * 
+     * @return IRolController
+     */
     public IRolController getIRolController() {
         return this.iRolController;
     }
 
+    /**
+     * Set the IRolController
+     * 
+     * @param iRolController IRolController
+     */
     @Autowired
     public void setIUserController(IRolController iRolController) {
         this.iRolController = iRolController;
     }
 
+    /**
+     * Find all roles
+     * 
+     * @return list of RolDto
+     */
     @GetMapping
     public List<RolDto> getAll() {
         return iRolController.findAll();
     }
 
+    /**
+     * Find a role by id
+     * 
+     * @param id role id
+     * @return RolDto
+     */
     @GetMapping("/{id}")
     public RolDto getById(@PathVariable(name = "id") final int id) {
         return iRolController.findById(id);
     }
 
+    /**
+     * Save a role
+     * 
+     * @param entity RolDto
+     * @return RolDto
+     */
     @PostMapping
     public RolDto save(@RequestBody RolDto entity) {
         return iRolController.save(entity);
     }
 
 
+    /**
+     * Delete a role by id
+     * 
+     * @param id role id
+     */
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
         iRolController.deleteById(id);

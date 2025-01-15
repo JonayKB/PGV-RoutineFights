@@ -32,30 +32,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class DimensionServiceV1 {
     IDimensionController iDimensionController;
 
+    /**
+     * Get the IDimensionController
+     * 
+     * @return IDimensionController
+     */
     public IDimensionController getIDimensionController() {
         return this.iDimensionController;
     }
-
+    /**
+     * Set the IDimensionController
+     * 
+     * @param iMobController IDimensionController
+     */
     @Autowired
     public void setIDimensionController(IDimensionController iMobController) {
         this.iDimensionController = iMobController;
     }
 
+    /**
+     * Find all dimensions
+     * 
+     * @return list of DimensionDto
+     */
     @GetMapping
     public List<DimensionDto> getAll() {
         return iDimensionController.findAll();
     }
 
+    /**
+     * Find a dimension by id
+     * 
+     * @param id dimension id
+     * @return DimensionDto
+     */
     @GetMapping("/{id}")
     public DimensionDto getById(@PathVariable(name = "id") final int id) {
         return iDimensionController.findById(id);
     }
 
+    /**
+     * Save a dimension
+     * 
+     * @param entity DimensionDto
+     * @return DimensionDto
+     */
     @PostMapping
     public DimensionDto save(@RequestBody DimensionDto entity) {
         return iDimensionController.save(entity);
     }
 
+    /**
+     * Delete a dimension by id
+     * 
+     * @param id dimension id
+     */
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
         iDimensionController.deleteById(id);

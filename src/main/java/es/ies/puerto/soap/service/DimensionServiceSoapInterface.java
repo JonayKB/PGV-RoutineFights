@@ -14,16 +14,39 @@ import jakarta.jws.WebService;
 @WebService()
 public interface DimensionServiceSoapInterface {
 
+    /**
+     * Get all dimensions
+     * 
+     * @return list of dimensionDto
+     */
     @WebMethod
     @WebResult(name = "dimension")
     List<DimensionDto> getAll();
 
+    /**
+     * Get a dimension by id
+     * 
+     * @param dimensionId dimension id
+     * @return dimensionDto
+     */
     @WebMethod
     DimensionDto getById(@WebParam(name = "dimensionId") int dimensionId);
 
+    /**
+     * Delete a dimension by id
+     * 
+     * @param dimensionId dimension id
+     * @return true if the dimension was deleted
+     */
     @WebMethod
     Boolean deleteById(@WebParam(name = "dimensionId") int dimensionId);
 
+    /**
+     * Create a dimension
+     * 
+     * @param dimension dimensionDto
+     * @return dimensionDto
+     */
     @WebMethod
     DimensionDto create(@WebParam(name = "dimension") DimensionDto dimension);
 

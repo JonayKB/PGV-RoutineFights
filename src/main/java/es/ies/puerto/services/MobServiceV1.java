@@ -28,30 +28,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MobServiceV1 {
     IMobController iMobController;
 
+    /**
+     * Get the IMobController
+     * 
+     * @return IMobController
+     */
     public IMobController getIMobController() {
         return this.iMobController;
     }
-
+    /**
+     * Set the IMobController
+     * 
+     * @param iMobController IMobController
+     */
     @Autowired
     public void setIMobController(IMobController iMobController) {
         this.iMobController = iMobController;
     }
 
+    /**
+     * Find all mobs
+     * 
+     * @return list of MobDto
+     */
     @GetMapping
     public List<MobDto> getAll() {
         return iMobController.findAll();
     }
 
+    /**
+     * Find a mob by id
+     * 
+     * @param id mob id
+     * @return MobDto
+     */
     @GetMapping("/{id}")
     public MobDto getById(@PathVariable(name = "id") final int id) {
         return iMobController.findById(id);
     }
 
+    /**
+     * Save a mob
+     * 
+     * @param entity mob to save
+     * @return MobDto
+     */
     @PostMapping
     public MobDto save(@RequestBody MobDto entity) {
         return iMobController.save(entity);
     }
 
+    /**
+     * Delete a mob by id
+     * 
+     * @param id mob id
+     */
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
         iMobController.deleteById(id);

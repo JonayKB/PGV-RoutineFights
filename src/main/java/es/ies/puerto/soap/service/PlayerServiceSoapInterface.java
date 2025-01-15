@@ -17,16 +17,39 @@ import jakarta.jws.WebService;
 @WebService()
 public interface PlayerServiceSoapInterface {
 
+    /**
+     * Get all players
+     * 
+     * @return list of playerDto
+     */
     @WebMethod
     @WebResult(name = "player")
     List<PlayerDto> getAll();
 
+    /**
+     * Get a player by id
+     * 
+     * @param playerId player id
+     * @return playerDto
+     */
     @WebMethod
     PlayerDto getById(@WebParam(name = "playerId") int playerId);
 
+    /**
+     * Delete a player by id
+     * 
+     * @param playerId player id
+     * @return true if the player was deleted
+     */
     @WebMethod
     Boolean deleteById(@WebParam(name = "playerId") int playerId);
 
+    /**
+     * Create a player
+     * 
+     * @param player playerDto
+     * @return playerDto
+     */
     @WebMethod
     PlayerDto create(@WebParam(name = "player") PlayerDto player);
 

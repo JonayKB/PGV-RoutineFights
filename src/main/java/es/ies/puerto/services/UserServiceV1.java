@@ -26,33 +26,63 @@ import org.springframework.web.bind.annotation.RequestParam;
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
 public class UserServiceV1 {
     IUserController iUserController;
-    Logger logger = Logger.getLogger(UserServiceV1.class.getName());
 
+    /**
+     * Get the IUserController
+     * 
+     * @return IUserController
+     */
     public IUserController getIUserController() {
         return this.iUserController;
     }
 
+    /**
+     * Set the IUserController
+     * 
+     * @param iUserController IUserController
+     */
     @Autowired
     public void setIUserController(IUserController iUserController) {
         this.iUserController = iUserController;
     }
 
+    /**
+     * Find all users
+     * 
+     * @return list of UserDto
+     */
     @GetMapping
     public List<UserDto> getAll() {
-        logger.info("getAll");
         return iUserController.findAll();
     }
 
+    /**
+     * Find a user by id
+     * 
+     * @param id user id
+     * @return UserDto
+     */
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable(name = "id") final int id) {
         return iUserController.findById(id);
     }
 
+    /**
+     * Save a user
+     * 
+     * @param entity UserDto
+     * @return UserDto
+     */
     @PostMapping
     public UserDto save(@RequestBody UserDto entity) {
         return iUserController.save(entity);
     }
 
+    /**
+     * Delete a user by id
+     * 
+     * @param id user id
+     */
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
         iUserController.deleteById(id);

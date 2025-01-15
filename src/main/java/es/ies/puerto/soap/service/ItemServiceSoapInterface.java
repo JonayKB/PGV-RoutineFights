@@ -15,16 +15,39 @@ import jakarta.jws.WebService;
 @WebService()
 public interface ItemServiceSoapInterface {
 
+    /**
+     * Get all items
+     * 
+     * @return list of itemDto
+     */
     @WebMethod
     @WebResult(name = "item")
     List<ItemDto> getAll();
 
+    /**
+     * Get an item by id
+     * 
+     * @param itemId item id
+     * @return itemDto
+     */
     @WebMethod
     ItemDto getById(@WebParam(name = "itemId") int itemId);
 
+    /**
+     * Delete an item by id
+     * 
+     * @param itemId item id
+     * @return true if the item was deleted
+     */
     @WebMethod
     Boolean deleteById(@WebParam(name = "itemId") int itemId);
 
+    /**
+     * Create an item
+     * 
+     * @param item itemDto
+     * @return itemDto
+     */
     @WebMethod
     ItemDto create(@WebParam(name = "item") ItemDto item);
 

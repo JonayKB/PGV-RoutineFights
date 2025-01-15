@@ -13,16 +13,39 @@ import jakarta.jws.WebService;
 @WebService()
 public interface BiomeServiceSoapInterface {
 
+    /**
+     * Get all biomes
+     * 
+     * @return list of biomeDto
+     */
     @WebMethod
     @WebResult(name = "biome")
     List<BiomeDto> getAll();
 
+    /**
+     * Get a biome by id
+     * 
+     * @param biomeId biome id
+     * @return biomeDto
+     */
     @WebMethod
     BiomeDto getById(@WebParam(name = "biomeId") int biomeId);
 
+    /**
+     * Delete a biome by id
+     * 
+     * @param biomeId biome id
+     * @return true if the biome was deleted
+     */
     @WebMethod
     Boolean deleteById(@WebParam(name = "biomeId") int biomeId);
 
+    /**
+     * Create a biome
+     * 
+     * @param biome biomeDto
+     * @return biomeDto
+     */
     @WebMethod
     BiomeDto create(@WebParam(name = "biome") BiomeDto biome);
 
