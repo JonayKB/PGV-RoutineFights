@@ -1,13 +1,11 @@
-package es.ies.puerto.services.v1;
+package es.ies.puerto.services.v3;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.ies.puerto.api.dto.ItemDto;
-import es.ies.puerto.api.dto.MobDto;
 import es.ies.puerto.api.dto.PlayerDto;
-import es.ies.puerto.controller.interfaces.IMobController;
 import es.ies.puerto.controller.interfaces.IPlayerController;
 
 import java.util.List;
@@ -23,74 +21,75 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/mobs")
+@RequestMapping("/api/v3/players")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 
-public class MobServiceV1 {
-    IMobController iMobController;
+public class PlayerService {
+    IPlayerController iPlayerController;
 
     /**
-     * Get the IMobController
+     * Get the IPlayerController
      * 
-     * @return IMobController
+     * @return IPlayerController
      */
-    public IMobController getIMobController() {
-        return this.iMobController;
+    public IPlayerController getIPlayerController() {
+        return this.iPlayerController;
     }
+
     /**
-     * Set the IMobController
+     * Set the IPlayerController
      * 
-     * @param iMobController IMobController
+     * @param iPlayerController IPlayerController
      */
     @Autowired
-    public void setIMobController(IMobController iMobController) {
-        this.iMobController = iMobController;
+    public void setIPlayerController(IPlayerController iPlayerController) {
+        this.iPlayerController = iPlayerController;
     }
 
     /**
-     * Find all mobs
+     * Find all players
      * 
-     * @return list of MobDto
+     * @return list of PlayerDto
      */
     @GetMapping
-    public List<MobDto> getAll() {
-        return iMobController.findAll();
+    public List<PlayerDto> getAll() {
+        return iPlayerController.findAll();
     }
 
     /**
-     * Find a mob by id
+     * Find a player by id
      * 
-     * @param id mob id
-     * @return MobDto
+     * @param id player id
+     * @return PlayerDto
      */
     @GetMapping("/{id}")
-    public MobDto getById(@PathVariable(name = "id") final int id) {
-        return iMobController.findById(id);
+    public PlayerDto getById(@PathVariable(name = "id") final int id) {
+        return iPlayerController.findById(id);
     }
 
     /**
-     * Save a mob
+     * Save a player
      * 
-     * @param entity mob to save
-     * @return MobDto
+     * @param entity PlayerDto
+     * @return PlayerDto
      */
     @PostMapping
-    public MobDto save(@RequestBody MobDto entity) {
-        return iMobController.save(entity);
+    public PlayerDto save(@RequestBody PlayerDto entity) {
+        return iPlayerController.save(entity);
     }
 
     @PutMapping
-    public MobDto update(@RequestBody MobDto entity) {
-        return iMobController.update(entity);
+    public PlayerDto update(@RequestBody PlayerDto entity) {
+        return iPlayerController.update(entity);
     }
 
     /**
-     * Delete a mob by id
+     * Delete a player by id
      * 
-     * @param id mob id
+     * @param id player id
      */
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
-        iMobController.deleteById(id);
+        iPlayerController.deleteById(id);
     }
 }

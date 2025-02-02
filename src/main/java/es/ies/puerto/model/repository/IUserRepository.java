@@ -21,4 +21,6 @@ public interface IUserRepository extends JpaRepository<User,Integer> {
 
     User save(User entity);
 
+    Optional<User> findByUsername(String username);
+
 }

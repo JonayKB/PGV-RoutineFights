@@ -18,17 +18,17 @@ import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.api.dto.DimensionDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.controller.interfaces.IDimensionController;
-import es.ies.puerto.services.v1.DimensionServiceV1;
+import es.ies.puerto.services.v3.DimensionService;
 
 class DimensionServiceV1Test {
     @Mock
     IDimensionController iDimensionController;
-    DimensionServiceV1 dimensionServiceV1;
+    DimensionService dimensionServiceV1;
 
     @BeforeEach
     void beforeEach() {
         MockitoAnnotations.openMocks(this);
-        dimensionServiceV1 = new DimensionServiceV1();
+        dimensionServiceV1 = new DimensionService();
         dimensionServiceV1.setIDimensionController(iDimensionController);
 
     }

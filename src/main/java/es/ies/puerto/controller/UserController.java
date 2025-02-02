@@ -58,6 +58,14 @@ public class UserController implements IUserController {
         return UserMapper.INSTANCE.toUserDto(userOptional.get());
     }
 
+    public UserDto findByUsername(String username) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if (!userOptional.isPresent()) {
+            return null;
+        }
+        return UserMapper.INSTANCE.toUserDto(userOptional.get());
+    }
+
     @Override
     public UserDto save(UserDto userDto) {
         User user = UserMapper.INSTANCE.toUser(userDto);

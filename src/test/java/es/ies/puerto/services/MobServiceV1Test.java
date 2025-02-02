@@ -20,17 +20,17 @@ import es.ies.puerto.api.dto.MobDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.controller.interfaces.IDimensionController;
 import es.ies.puerto.controller.interfaces.IMobController;
-import es.ies.puerto.services.v1.MobServiceV1;
+import es.ies.puerto.services.v3.MobService;
 
 class MobServiceV1Test {
     @Mock
     IMobController iMobController;
-    MobServiceV1 mobServiceV1;
+    MobService mobServiceV1;
 
     @BeforeEach
     void beforeEach() {
         MockitoAnnotations.openMocks(this);
-        mobServiceV1 = new MobServiceV1();
+        mobServiceV1 = new MobService();
         mobServiceV1.setIMobController(iMobController);
 
     }

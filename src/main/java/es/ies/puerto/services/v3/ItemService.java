@@ -1,4 +1,4 @@
-package es.ies.puerto.services.v1;
+package es.ies.puerto.services.v3;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/v1/items")
+@RequestMapping("/api/v3/items")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
-public class ItemServiceV1 {
+public class ItemService {
     IItemController iItemController;
     /**
      * Get the IItemController

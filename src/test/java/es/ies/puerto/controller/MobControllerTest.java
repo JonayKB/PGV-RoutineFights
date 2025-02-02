@@ -35,7 +35,7 @@ import es.ies.puerto.model.repository.IDimensionRepository;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
-import es.ies.puerto.services.v1.ItemServiceV1;
+import es.ies.puerto.services.v3.ItemService;
 
 class MobControllerTest {
     IMobController iMobController;

@@ -16,17 +16,17 @@ import org.mockito.MockitoAnnotations;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
-import es.ies.puerto.services.v1.BiomeServiceV1;
+import es.ies.puerto.services.v3.BiomeService;
 
 class BiomeServiceV1Test {
     @Mock
     IBiomeController iBiomeController;
-    BiomeServiceV1 biomeServiceV1;
+    BiomeService biomeServiceV1;
 
     @BeforeEach
     void beforeEach() {
         MockitoAnnotations.openMocks(this);
-        biomeServiceV1 = new BiomeServiceV1();
+        biomeServiceV1 = new BiomeService();
         biomeServiceV1.setIIBiomeController(iBiomeController);
 
     }

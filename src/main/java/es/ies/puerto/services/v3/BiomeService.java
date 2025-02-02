@@ -1,4 +1,4 @@
-package es.ies.puerto.services.v1;
+package es.ies.puerto.services.v3;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +14,10 @@ import es.ies.puerto.controller.interfaces.IPlayerController;
 
 import java.util.List;
 
+import org.apache.cxf.security.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/biomes")
+@RequestMapping("/api/v3/biomes")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
-public class BiomeServiceV1 {
+public class BiomeService {
     IBiomeController iBiomeController;
 
     /**
@@ -77,7 +80,9 @@ public class BiomeServiceV1 {
      * @return BiomeDto
      */
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BiomeDto save(@RequestBody BiomeDto entity) {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
         return iBiomeController.save(entity);
     }
 
