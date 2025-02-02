@@ -43,6 +43,10 @@ public interface IRolController {
      */
     public RolDto save(RolDto rolDto);
 
+
+    public RolDto update(RolDto rolDto);
+
+
     /**
      * Delete a role by id
      * 

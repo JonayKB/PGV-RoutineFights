@@ -1,16 +1,14 @@
-package es.ies.puerto.services;
+package es.ies.puerto.services.v1;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.ies.puerto.api.dto.BiomeDto;
-import es.ies.puerto.api.dto.DimensionDto;
 import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.api.dto.MobDto;
 import es.ies.puerto.api.dto.PlayerDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
-import es.ies.puerto.controller.interfaces.IDimensionController;
 import es.ies.puerto.controller.interfaces.IMobController;
 import es.ies.puerto.controller.interfaces.IPlayerController;
 
@@ -22,73 +20,80 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/dimensions")
+@RequestMapping("/api/v1/biomes")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
-
-public class DimensionServiceV1 {
-    IDimensionController iDimensionController;
+public class BiomeServiceV1 {
+    IBiomeController iBiomeController;
 
     /**
-     * Get the IDimensionController
+     * Get the IBiomeController
      * 
-     * @return IDimensionController
+     * @return IBiomeController
      */
-    public IDimensionController getIDimensionController() {
-        return this.iDimensionController;
+    public IBiomeController getIBiomeController() {
+        return this.iBiomeController;
     }
+
     /**
-     * Set the IDimensionController
+     * Set the IBiomeController
      * 
-     * @param iMobController IDimensionController
+     * @param iBiomeController IBiomeController
      */
     @Autowired
-    public void setIDimensionController(IDimensionController iMobController) {
-        this.iDimensionController = iMobController;
+    public void setIIBiomeController(IBiomeController iMobController) {
+        this.iBiomeController = iMobController;
     }
 
     /**
-     * Find all dimensions
+     * Find all biomes
      * 
-     * @return list of DimensionDto
+     * @return list of BiomeDto
      */
     @GetMapping
-    public List<DimensionDto> getAll() {
-        return iDimensionController.findAll();
+    public List<BiomeDto> getAll() {
+        return iBiomeController.findAll();
     }
 
     /**
-     * Find a dimension by id
+     * Find a biome by id
      * 
-     * @param id dimension id
-     * @return DimensionDto
+     * @param id biome id
+     * @return BiomeDto
      */
     @GetMapping("/{id}")
-    public DimensionDto getById(@PathVariable(name = "id") final int id) {
-        return iDimensionController.findById(id);
+    public BiomeDto getById(@PathVariable(name = "id") final int id) {
+        return iBiomeController.findById(id);
     }
 
     /**
-     * Save a dimension
+     * Save a biome
      * 
-     * @param entity DimensionDto
-     * @return DimensionDto
+     * @param entity BiomeDto
+     * @return BiomeDto
      */
     @PostMapping
-    public DimensionDto save(@RequestBody DimensionDto entity) {
-        return iDimensionController.save(entity);
+    public BiomeDto save(@RequestBody BiomeDto entity) {
+        return iBiomeController.save(entity);
     }
 
+    @PutMapping
+    public BiomeDto update(@RequestBody BiomeDto entity) {
+        return iBiomeController.update(entity);
+    }
+
+
     /**
-     * Delete a dimension by id
+     * Delete a biome by id
      * 
-     * @param id dimension id
+     * @param id biome id
      */
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable(name = "id") final int id) {
-        iDimensionController.deleteById(id);
+        iBiomeController.deleteById(id);
     }
 }

@@ -22,6 +22,7 @@ import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.controller.interfaces.IDimensionController;
 import es.ies.puerto.controller.interfaces.IMobController;
 import es.ies.puerto.controller.interfaces.IPlayerController;
+import es.ies.puerto.services.v1.PlayerServiceV1;
 
 class PlayerServiceV1Test {
     @Mock

@@ -25,7 +25,7 @@ import es.ies.puerto.model.entity.Biome;
 import es.ies.puerto.model.entity.Dimension;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IDimensionRepository;
-import es.ies.puerto.services.ItemServiceV1;
+import es.ies.puerto.services.v1.ItemServiceV1;
 
 class DimensionControllerTest {
     IDimensionController iDimensionController;

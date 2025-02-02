@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.api.dto.DimensionDto;
@@ -18,23 +19,21 @@ import es.ies.puerto.model.entity.Dimension;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IDimensionRepository;
 import lombok.extern.java.Log;
-
+@Transactional
 @Controller
-@Log
 public class DimensionController implements IDimensionController {
     private IDimensionRepository iDimensionRepository;
     private IBiomeRepository iBiomeRepository;
 
-
     public IBiomeRepository getIBiomeRepository() {
         return this.iBiomeRepository;
     }
+
     @Override
     @Autowired
     public void setIBiomeRepository(IBiomeRepository iBiomeRepository) {
         this.iBiomeRepository = iBiomeRepository;
     }
-
 
     @Override
     public IDimensionRepository getIDimensionRepository() {
@@ -54,7 +53,6 @@ public class DimensionController implements IDimensionController {
         for (Dimension dimension : dimensions) {
             dimensionDtos.add(DimensionMapper.INSTANCE.toDimensionDto(dimension));
         }
-        log.info("Dimensions found: " + dimensionDtos.size());
         return dimensionDtos;
     }
 
@@ -64,7 +62,6 @@ public class DimensionController implements IDimensionController {
         if (!dimensionOptional.isPresent()) {
             return new DimensionDto();
         }
-        log.info("Dimension found: " + dimensionOptional.get().getName());
         return DimensionMapper.INSTANCE.toDimensionDto(dimensionOptional.get());
     }
 
@@ -72,7 +69,7 @@ public class DimensionController implements IDimensionController {
     public DimensionDto save(DimensionDto dimensionDto) {
         Dimension dimension = DimensionMapper.INSTANCE.toDimension(dimensionDto);
         Set<Biome> biomes = new HashSet<>();
-        if (dimensionDto.getBiomes()==null) {
+        if (dimensionDto.getBiomes() == null) {
             dimensionDto.setBiomes(new HashSet<>());
         }
         for (BiomeDto biomesDto : dimensionDto.getBiomes()) {
@@ -85,14 +82,32 @@ public class DimensionController implements IDimensionController {
             }
         }
         dimension.setBiomes(biomes);
-        log.info("Dimension saved: " + dimension.getName());
         return DimensionMapper.INSTANCE.toDimensionDto(iDimensionRepository.save(dimension));
     }
 
     @Override
     public void deleteById(Integer id) {
         iDimensionRepository.deleteById(id);
-        log.info("Dimension deleted: " + id);
+    }
+
+    @Override
+    public DimensionDto update(DimensionDto dimensionDto) {
+        Dimension dimension = DimensionMapper.INSTANCE.toDimension(dimensionDto);
+        Set<Biome> biomes = new HashSet<>();
+        if (dimensionDto.getBiomes() == null) {
+            dimensionDto.setBiomes(new HashSet<>());
+        }
+        for (BiomeDto biomesDto : dimensionDto.getBiomes()) {
+            Optional<Biome> biomeOptional = iBiomeRepository.findById(biomesDto.getId());
+            if (biomeOptional.isPresent()) {
+                Biome biome = biomeOptional.get();
+                biomes.add(biome);
+                biome.setDimension(dimension);
+                dimension.getBiomes().add(biome);
+            }
+        }
+        dimension.setBiomes(biomes);
+        return DimensionMapper.INSTANCE.toDimensionDto(iDimensionRepository.save(dimension));
     }
 
 }

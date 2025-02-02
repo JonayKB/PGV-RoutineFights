@@ -58,6 +58,8 @@ public interface IBiomeController {
      */
     public BiomeDto save(BiomeDto biomeDto);
 
+    public BiomeDto update(BiomeDto biomeDto);
+
     /**
      * Delete a biome by id
      * 

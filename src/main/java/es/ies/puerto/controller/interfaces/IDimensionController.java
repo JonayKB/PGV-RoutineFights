@@ -59,6 +59,14 @@ public interface IDimensionController {
     public DimensionDto save(DimensionDto dimensionDto);
 
     /**
+     * Update a dimension
+     * 
+     * @param dimensionDto DimensionDto
+     * @return DimensionDto
+     */
+    public DimensionDto update(DimensionDto dimensionDto);
+
+    /**
      * Delete a dimension by id
      * 
      * @param id dimension id

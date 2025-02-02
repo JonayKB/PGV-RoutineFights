@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.api.dto.MobDto;
@@ -26,9 +27,8 @@ import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
 import lombok.extern.java.Log;
-
+@Transactional
 @Controller
-@Log
 public class MobController implements IMobController {
     private IMobRepository iMobRepository;
     private IItemRepository iItemRepository;
@@ -37,11 +37,11 @@ public class MobController implements IMobController {
     public IBiomeRepository getIBiomeRepository() {
         return this.iBiomeRepository;
     }
+
     @Autowired
     public void setIBiomeRepository(IBiomeRepository iBiomeRepository) {
         this.iBiomeRepository = iBiomeRepository;
     }
-
 
     public IItemRepository getIItemRepository() {
         return this.iItemRepository;
@@ -70,7 +70,6 @@ public class MobController implements IMobController {
         for (Mob mob : mobs) {
             mobsDtos.add(MobMapper.INSTANCE.toMobDto(mob));
         }
-        log.info("Mobs found: " + mobsDtos.size());
         return mobsDtos;
     }
 
@@ -80,7 +79,6 @@ public class MobController implements IMobController {
         if (!mobOptional.isPresent()) {
             return new MobDto();
         }
-        log.info("Mob found: " + mobOptional.get().getName());
         return MobMapper.INSTANCE.toMobDto(mobOptional.get());
     }
 
@@ -117,14 +115,50 @@ public class MobController implements IMobController {
         }
         mob.setBiomes(biomes);
 
-        log.info("Mob saved: " + mob.getName());
         return MobMapper.INSTANCE.toMobDto(iMobRepository.save(mob));
     }
 
     @Override
     public void deleteById(Integer id) {
+        iMobRepository.deleteByIdBiomes(id);
+        iMobRepository.deleteByIdItems(id);
         iMobRepository.deleteById(id);
-        log.info("Mob deleted: " + id);
+    }
+
+    @Override
+    public MobDto update(MobDto mobDto) {
+        List<Item> items = new ArrayList<>();
+        Set<Biome> biomes = new HashSet<>();
+        Mob mob = MobMapper.INSTANCE.toMob(mobDto);
+        for (ItemDto itemDto : mobDto.getDropList()) {
+            Optional<Item> itemOptional = iItemRepository.findById(itemDto.getId());
+            if (itemOptional.isPresent()) {
+                Item item = itemOptional.get();
+                items.add(item);
+                if (item.getMobs() == null) {
+                    item.setMobs(new ArrayList<>());
+                }
+                item.getMobs().add(mob);
+            }
+
+        }
+
+        mob.setDropList(items);
+
+        for (Integer idBioma : mobDto.getBiomesIds()) {
+            Optional<Biome> biomeOptional = iBiomeRepository.findById(idBioma);
+            if (biomeOptional.isPresent()) {
+                Biome biome = biomeOptional.get();
+                biomes.add(biome);
+                if (biome.getSpawnMobs() == null) {
+                    biome.setSpawnMobs(new HashSet<>());
+                }
+                biome.getSpawnMobs().add(mob);
+            }
+        }
+        mob.setBiomes(biomes);
+
+        return MobMapper.INSTANCE.toMobDto(iMobRepository.save(mob));
     }
 
 }

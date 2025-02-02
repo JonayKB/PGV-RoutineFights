@@ -20,6 +20,7 @@ import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.controller.interfaces.IDimensionController;
 import es.ies.puerto.controller.interfaces.IItemController;
+import es.ies.puerto.services.v1.ItemServiceV1;
 
 class ItemServiceV1Test {
     @Mock

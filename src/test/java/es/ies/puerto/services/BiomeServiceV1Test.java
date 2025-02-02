@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
+import es.ies.puerto.services.v1.BiomeServiceV1;
 
 class BiomeServiceV1Test {
     @Mock

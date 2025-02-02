@@ -20,6 +20,7 @@ import es.ies.puerto.api.dto.MobDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.controller.interfaces.IDimensionController;
 import es.ies.puerto.controller.interfaces.IMobController;
+import es.ies.puerto.services.v1.MobServiceV1;
 
 class MobServiceV1Test {
     @Mock

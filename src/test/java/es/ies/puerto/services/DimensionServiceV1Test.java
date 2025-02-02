@@ -18,6 +18,7 @@ import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.api.dto.DimensionDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.controller.interfaces.IDimensionController;
+import es.ies.puerto.services.v1.DimensionServiceV1;
 
 class DimensionServiceV1Test {
     @Mock
