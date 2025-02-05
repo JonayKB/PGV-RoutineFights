@@ -21,6 +21,8 @@ import es.ies.puerto.services.v3.UserService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1")
+
+
 public class AuthService {
     @Autowired
     private JwtService jwtService;
