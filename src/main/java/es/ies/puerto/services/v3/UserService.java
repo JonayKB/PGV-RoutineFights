@@ -1,4 +1,4 @@
-package es.ies.puerto.services;
+package es.ies.puerto.services.v3;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,18 +13,20 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v3/users")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
-public class UserServiceV1 {
+public class UserService {
     IUserController iUserController;
 
     /**
@@ -53,7 +55,10 @@ public class UserServiceV1 {
      */
     @GetMapping
     public List<UserDto> getAll() {
-        return iUserController.findAll();
+        return iUserController.findAll().stream().map(user -> {
+            user.setPassword("HIDDEN");
+            return user;
+        }).toList();
     }
 
     /**
@@ -64,7 +69,9 @@ public class UserServiceV1 {
      */
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable(name = "id") final int id) {
-        return iUserController.findById(id);
+        UserDto user = iUserController.findById(id);
+        user.setPassword("HIDDEN");
+        return user;
     }
 
     /**
@@ -74,8 +81,21 @@ public class UserServiceV1 {
      * @return UserDto
      */
     @PostMapping
-    public UserDto save(@RequestBody UserDto entity) {
-        return iUserController.save(entity);
+    public ResponseEntity<?> save(@RequestBody UserDto entity) {
+        try {
+            return ResponseEntity.ok(iUserController.save(entity));
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody UserDto entity) {
+        try {
+            return ResponseEntity.ok(iUserController.update(entity));
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 
     /**
@@ -84,7 +104,12 @@ public class UserServiceV1 {
      * @param id user id
      */
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable(name = "id") final int id) {
-        iUserController.deleteById(id);
+    public ResponseEntity<?> deleteById(@PathVariable(name = "id") final int id) {
+        try {
+            iUserController.deleteById(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 }

@@ -1,4 +1,4 @@
-package es.ies.puerto.services;
+package es.ies.puerto.services.v3;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,19 +11,21 @@ import es.ies.puerto.controller.interfaces.IRolController;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/roles")
-@CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
+@RequestMapping("/api/v3/roles")
+@CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
 
-public class RolServiceV1 {
+public class RolService {
     IRolController iRolController;
 
     /**
@@ -51,8 +53,12 @@ public class RolServiceV1 {
      * @return list of RolDto
      */
     @GetMapping
-    public List<RolDto> getAll() {
-        return iRolController.findAll();
+    public ResponseEntity<?> getAll() {
+        try {
+            return ResponseEntity.ok(iRolController.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 
     /**
@@ -73,10 +79,22 @@ public class RolServiceV1 {
      * @return RolDto
      */
     @PostMapping
-    public RolDto save(@RequestBody RolDto entity) {
-        return iRolController.save(entity);
+    public ResponseEntity<?> save(@RequestBody RolDto entity) {
+        try {
+            return ResponseEntity.ok(iRolController.save(entity));
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody RolDto entity) {
+        try {
+            return ResponseEntity.ok(iRolController.update(entity));
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
 
     /**
      * Delete a role by id
@@ -84,7 +102,12 @@ public class RolServiceV1 {
      * @param id role id
      */
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable(name = "id") final int id) {
-        iRolController.deleteById(id);
+    public ResponseEntity<?> deleteById(@PathVariable(name = "id") final int id) {
+        try {
+            iRolController.deleteById(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 }

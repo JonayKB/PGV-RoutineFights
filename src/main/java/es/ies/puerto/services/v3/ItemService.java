@@ -1,4 +1,4 @@
-package es.ies.puerto.services;
+package es.ies.puerto.services.v3;
 
 import java.util.List;
 
@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/v1/items")
+@RequestMapping("/api/v3/items")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
-public class ItemServiceV1 {
+public class ItemService {
     IItemController iItemController;
     /**
      * Get the IItemController
@@ -71,6 +72,11 @@ public class ItemServiceV1 {
     @PostMapping
     public ItemDto save(@RequestBody ItemDto entity) {
         return iItemController.save(entity);
+    }
+
+    @PutMapping
+    public ItemDto update(@RequestBody ItemDto entity) {
+        return iItemController.update(entity);
     }
 
     /**

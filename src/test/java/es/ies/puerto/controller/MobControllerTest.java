@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.api.dto.DimensionDto;
@@ -35,7 +36,8 @@ import es.ies.puerto.model.repository.IDimensionRepository;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
-import es.ies.puerto.services.ItemServiceV1;
+import es.ies.puerto.services.v3.ItemService;
+@SpringBootTest
 
 class MobControllerTest {
     IMobController iMobController;
@@ -135,4 +137,34 @@ class MobControllerTest {
 
         Assertions.assertTrue(true);
     }
+    @Test
+void updateTest() {
+    ItemDto itemDto = new ItemDto();
+    itemDto.setId(1);  
+    List<ItemDto> dropList = new ArrayList<>();
+    dropList.add(itemDto);
+
+    HashSet<Integer> biomesIds = new HashSet<>();
+    biomesIds.add(1);
+
+    MobDto inputMobDto = new MobDto();
+    inputMobDto.setDropList(dropList);
+    inputMobDto.setBiomesIds(biomesIds);
+
+    Item item = new Item();
+    item.setMobs(null);
+    when(iItemRepository.findById(1)).thenReturn(Optional.of(item));
+
+    Biome biome = new Biome();
+    biome.setSpawnMobs(null); 
+    when(iBiomeRepository.findById(1)).thenReturn(Optional.of(biome));
+
+    Mob savedMob = new Mob();
+    when(iMobRepository.save(any(Mob.class))).thenReturn(savedMob);
+
+    MobDto updatedMobDto = iMobController.update(inputMobDto);
+
+    Assertions.assertNotNull(updatedMobDto);
+}
+
 }

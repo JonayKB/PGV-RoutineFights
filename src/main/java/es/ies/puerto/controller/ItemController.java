@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.api.mappers.ItemMapper;
@@ -15,9 +16,8 @@ import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
 import lombok.extern.java.Log;
-
+@Transactional
 @Controller
-@Log
 public class ItemController implements IItemController {
     private IItemRepository iItemRepository;
     private IMobRepository iMobRepository;
@@ -63,7 +63,6 @@ public class ItemController implements IItemController {
         for (Item item : items) {
             itemDtos.add(ItemMapper.INSTANCE.toItemDto(item));
         }
-        log.info("Items found: " + itemDtos.size());
         return itemDtos;
     }
 
@@ -73,7 +72,6 @@ public class ItemController implements IItemController {
         if (!itemOptional.isPresent()) {
             return new ItemDto();
         }
-        log.info("Item found: " + itemOptional.get().getName());
         return ItemMapper.INSTANCE.toItemDto(itemOptional.get());
     }
 
@@ -82,14 +80,22 @@ public class ItemController implements IItemController {
         Item item = ItemMapper.INSTANCE.toItem(itemDto);
         item.setMobs(iMobRepository.findAllById(itemDto.getMobsIds()));
         item.setPlayers(iPlayerRepository.findAllById(itemDto.getPlayersIds()));
-        log.info("Item saved: " + item.getName());
         return ItemMapper.INSTANCE.toItemDto(iItemRepository.save(item));
     }
 
     @Override
     public void deleteById(Integer id) {
+        iItemRepository.deleteByIdMobs(id);
+        iItemRepository.deleteByIdPlayers(id);
         iItemRepository.deleteById(id);
-        log.info("Item deleted: " + id);
+    }
+
+    @Override
+    public ItemDto update(ItemDto itemDto) {
+        Item item = ItemMapper.INSTANCE.toItem(itemDto);
+        item.setMobs(iMobRepository.findAllById(itemDto.getMobsIds()));
+        item.setPlayers(iPlayerRepository.findAllById(itemDto.getPlayersIds()));
+        return ItemMapper.INSTANCE.toItemDto(iItemRepository.save(item));
     }
 
 }

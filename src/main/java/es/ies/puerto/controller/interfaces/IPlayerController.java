@@ -59,6 +59,14 @@ public interface IPlayerController {
     public PlayerDto save(PlayerDto playerDto);
 
     /**
+     * Update a player
+     * 
+     * @param playerDto PlayerDto
+     * @return PlayerDto
+     */
+    public PlayerDto update(PlayerDto playerDto);
+
+    /**
      * Delete a player by id
      * 
      * @param id player id

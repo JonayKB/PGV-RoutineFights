@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.api.dto.RolDto;
@@ -18,9 +19,8 @@ import es.ies.puerto.model.repository.IDimensionRepository;
 import es.ies.puerto.model.repository.IRolRepository;
 import lombok.extern.java.Log;
 import es.ies.puerto.model.entity.Rol;
-
+@Transactional
 @Controller
-@Log
 public class RolController implements IRolController {
     private IRolRepository rolRepository;
 
@@ -43,7 +43,6 @@ public class RolController implements IRolController {
         for (Rol rol : roles) {
             rolesDto.add(RolMapper.INSTANCE.toRolDto(rol));
         }
-        log.info("Roles found: " + rolesDto.size());
 
         return rolesDto;
     }
@@ -54,7 +53,6 @@ public class RolController implements IRolController {
         if (!rolOptional.isPresent()) {
             return new RolDto();
         }
-        log.info("Rol found: " + rolOptional.get().getName());
         return RolMapper.INSTANCE.toRolDto(rolOptional.get());
     }
 
@@ -62,14 +60,22 @@ public class RolController implements IRolController {
     public RolDto save(RolDto rolDto) {
         Rol rol = RolMapper.INSTANCE.toRol(rolDto);
         Rol savedRol = rolRepository.save(rol);
-        log.info("Rol saved: " + savedRol.getName());
         return RolMapper.INSTANCE.toRolDto(savedRol);
     }
 
     @Override
     public void deleteById(Integer id) {
+        if (id == 1 | id == 5)
+            throw new IllegalArgumentException("No se puede borrar el rol con id 1 o 5");
+        rolRepository.changeToUser(id);
         rolRepository.deleteById(id);
-        log.info("Rol deleted: " + id);
+    }
+
+    @Override
+    public RolDto update(RolDto rolDto) {
+        Rol rol = RolMapper.INSTANCE.toRol(rolDto);
+        Rol updatedRol = rolRepository.save(rol);
+        return RolMapper.INSTANCE.toRolDto(updatedRol);
     }
 
 }

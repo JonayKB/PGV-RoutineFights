@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.api.dto.PlayerDto;
@@ -17,9 +18,8 @@ import es.ies.puerto.model.entity.Player;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
 import lombok.extern.java.Log;
-
+@Transactional
 @Controller
-@Log
 public class PlayerController implements IPlayerController {
     private IPlayerRepository iPlayerRepository;
     private IItemRepository iItemRepository;
@@ -51,7 +51,6 @@ public class PlayerController implements IPlayerController {
         for (Player player : players) {
             itemDtos.add(PlayerMapper.INSTANCE.toPlayerDto(player));
         }
-        log.info("Players found: " + itemDtos.size());
         return itemDtos;
     }
 
@@ -61,7 +60,6 @@ public class PlayerController implements IPlayerController {
         if (!itemOptional.isPresent()) {
             return new PlayerDto();
         }
-        log.info("Player found: " + itemOptional.get().getNickname());
         return PlayerMapper.INSTANCE.toPlayerDto(itemOptional.get());
     }
 
@@ -82,16 +80,33 @@ public class PlayerController implements IPlayerController {
 
         }
         player.setItems(items);
-        log.info("Player saved: " + player.getNickname());
         return PlayerMapper.INSTANCE.toPlayerDto(iPlayerRepository.save(player));
     }
 
     @Override
     public void deleteById(Integer id) {
+        iPlayerRepository.deleteByIdItems(id);
         iPlayerRepository.deleteById(id);
-        log.info("Player deleted: " + id);
     }
 
+    @Override
+    public PlayerDto update(PlayerDto playerDto) {
+        List<Item> items = new ArrayList<>();
+        Player player = PlayerMapper.INSTANCE.toPlayer(playerDto);
+        for (ItemDto itemDto : playerDto.getItems()) {
+            Optional<Item> itemOptional = iItemRepository.findById(itemDto.getId());
+            if (itemOptional.isPresent()) {
+                Item item = itemOptional.get();
+                items.add(item);
+                if (item.getPlayers() == null) {
+                    item.setPlayers(new ArrayList<>());
+                }
+                item.getPlayers().add(player);
+            }
 
+        }
+        player.setItems(items);
+        return PlayerMapper.INSTANCE.toPlayerDto(iPlayerRepository.save(player));
+    }
 
 }

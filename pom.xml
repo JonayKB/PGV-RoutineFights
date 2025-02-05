@@ -20,8 +20,32 @@
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<lombok.version>1.18.30</lombok.version>
+
+		<sonar.dependencyCheck.basePath>
+			${project.basedir}/owasp-dependency-check-logs
+		</sonar.dependencyCheck.basePath>
+		<sonar.dependencyCheck.htmlReportPath>
+			${sonar.dependencyCheck.basePath}/dependency-check-report.html
+		</sonar.dependencyCheck.htmlReportPath>
+		<sonar.dependencyCheck.jsonReportPath>
+			${sonar.dependencyCheck.basePath}/dependency-check-report.json
+		</sonar.dependencyCheck.jsonReportPath>
+		<sonar.dependencyCheck.summarize>true</sonar.dependencyCheck.summarize>
+
+		<sonar.coverage.exclusions>**/controller/debug/**/*</sonar.coverage.exclusions>
+
+		<sonar.exclusions>src/test/**/*</sonar.exclusions>
+		<sonar.sources>src,pom.xml</sonar.sources>
+		<sonar.test.inclusions>src/test/**/*</sonar.test.inclusions>
+		<sonar.tests>src</sonar.tests>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -32,7 +56,11 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -55,13 +83,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- 
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.12.5</version>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>4.4.0</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
@@ -71,7 +97,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
--->
 
 		<dependency>
 			<groupId>org.xerial</groupId>
@@ -111,6 +136,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.9.1.2184</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -205,5 +235,43 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>sonarReports</id>
 
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.owasp</groupId>
+						<artifactId>dependency-check-maven</artifactId>
+						<version>6.5.3</version>
+
+						<configuration>
+							<mavenSettingsProxyId>https-p</mavenSettingsProxyId>
+							<outputDirectory>${sonar.dependencyCheck.basePath}</outputDirectory>
+
+							<formats>
+								<format>html</format>
+								<format>json</format>
+							</formats>
+						</configuration>
+
+						<executions>
+							<execution>
+								<id>generate-dependency-check-report</id>
+
+								<goals>
+									<goal>aggregate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

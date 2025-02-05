@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -22,12 +23,13 @@ public class User implements Serializable {
     private Integer id;
     private String username;
     private String password;
-    @ManyToOne()
+    @ManyToOne
+    @JoinColumn(nullable = true)
     private Rol rol;
-
 
     public User() {
     }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -60,10 +62,10 @@ public class User implements Serializable {
     public Rol getRol() {
         return this.rol;
     }
+
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-
 
     @Override
     public boolean equals(Object o) {

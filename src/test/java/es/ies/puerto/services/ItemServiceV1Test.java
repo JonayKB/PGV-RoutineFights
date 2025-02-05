@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.api.dto.DimensionDto;
@@ -20,16 +21,18 @@ import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.controller.interfaces.IDimensionController;
 import es.ies.puerto.controller.interfaces.IItemController;
+import es.ies.puerto.services.v3.ItemService;
+@SpringBootTest
 
 class ItemServiceV1Test {
     @Mock
     IItemController iItemController;
-    ItemServiceV1 ItemServiceV1;
+    ItemService ItemServiceV1;
 
     @BeforeEach
     void beforeEach() {
         MockitoAnnotations.openMocks(this);
-        ItemServiceV1 = new ItemServiceV1();
+        ItemServiceV1 = new ItemService();
         ItemServiceV1.setIItemController(iItemController);
 
     }

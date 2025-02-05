@@ -1,4 +1,4 @@
-package es.ies.puerto.services;
+package es.ies.puerto.services.v3;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +13,7 @@ import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.controller.interfaces.IDimensionController;
 import es.ies.puerto.controller.interfaces.IMobController;
 import es.ies.puerto.controller.interfaces.IPlayerController;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 
@@ -22,14 +23,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/dimensions")
-@CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
-
-public class DimensionServiceV1 {
+@RequestMapping("/api/v3/dimensions")
+@CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
+public class DimensionService {
     IDimensionController iDimensionController;
 
     /**
@@ -40,6 +41,7 @@ public class DimensionServiceV1 {
     public IDimensionController getIDimensionController() {
         return this.iDimensionController;
     }
+
     /**
      * Set the IDimensionController
      * 
@@ -80,6 +82,11 @@ public class DimensionServiceV1 {
     @PostMapping
     public DimensionDto save(@RequestBody DimensionDto entity) {
         return iDimensionController.save(entity);
+    }
+
+    @PutMapping
+    public DimensionDto update(@RequestBody DimensionDto entity) {
+        return iDimensionController.update(entity);
     }
 
     /**

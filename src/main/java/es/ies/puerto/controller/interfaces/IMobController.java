@@ -74,6 +74,14 @@ public interface IMobController {
     public MobDto save(MobDto mobDto);
 
     /**
+     * Update a mob
+     * 
+     * @param mobDto MobDto
+     * @return MobDto
+     */
+    public MobDto update(MobDto mobDto);
+
+    /**
      * Delete a mob by id
      * 
      * @param id mob id

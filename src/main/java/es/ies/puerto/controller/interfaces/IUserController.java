@@ -44,6 +44,14 @@ public interface IUserController {
     public UserDto save(UserDto userDto);
 
     /**
+     * Update a user
+     * 
+     * @param userDto UserDto
+     * @return UserDto
+     */
+    public UserDto update(UserDto userDto);
+
+    /**
      * Delete a user by id
      * 
      * @param id user id

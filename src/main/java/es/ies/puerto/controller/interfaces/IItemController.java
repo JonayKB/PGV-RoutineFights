@@ -65,6 +65,13 @@ public interface IItemController {
     public ItemDto save(ItemDto itemDto);
 
     /**
+     * Update an item
+     * @param itemDto ItemDto
+     * @return ItemDto
+     */
+    public ItemDto update(ItemDto itemDto);
+
+    /**
      * Delete an item by id
      * @param id item id
      */

@@ -1,4 +1,4 @@
-package es.ies.puerto.services;
+package es.ies.puerto.services.v3;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/players")
+@RequestMapping("/api/v3/players")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 
-public class PlayerServiceV1 {
+public class PlayerService {
     IPlayerController iPlayerController;
 
     /**
@@ -75,6 +76,11 @@ public class PlayerServiceV1 {
     @PostMapping
     public PlayerDto save(@RequestBody PlayerDto entity) {
         return iPlayerController.save(entity);
+    }
+
+    @PutMapping
+    public PlayerDto update(@RequestBody PlayerDto entity) {
+        return iPlayerController.update(entity);
     }
 
     /**

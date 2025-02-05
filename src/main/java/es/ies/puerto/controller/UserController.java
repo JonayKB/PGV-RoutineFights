@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.api.dto.UserDto;
@@ -21,10 +23,12 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import es.ies.puerto.model.entity.User;
 
+@Transactional
 @Controller
-@Log
 public class UserController implements IUserController {
     private IUserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public IUserRepository getIUserRepository() {
@@ -43,9 +47,10 @@ public class UserController implements IUserController {
         List<UserDto> userDtos = new ArrayList<>();
 
         for (User user : users) {
+
             userDtos.add(UserMapper.INSTANCE.toUserDto(user));
         }
-        log.info("Users found: " + userDtos.size());
+
 
         return userDtos;
     }
@@ -56,21 +61,39 @@ public class UserController implements IUserController {
         if (!userOptional.isPresent()) {
             return new UserDto();
         }
-        log.info("User found: " + userOptional.get().getUsername());
-        return UserMapper.INSTANCE.toUserDto(userOptional.get());
+        UserDto userDto = UserMapper.INSTANCE.toUserDto(userOptional.get());
+
+
+        return userDto;
+    }
+
+    public UserDto findByUsername(String username) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if (!userOptional.isPresent()) {
+            return null;
+        }
+        UserDto userDto = UserMapper.INSTANCE.toUserDto(userOptional.get());
+
+        return userDto;
     }
 
     @Override
     public UserDto save(UserDto userDto) {
         User user = UserMapper.INSTANCE.toUser(userDto);
-        log.info("User saved: " + user.getUsername());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return UserMapper.INSTANCE.toUserDto(userRepository.save(user));
     }
 
     @Override
     public void deleteById(Integer id) {
         userRepository.deleteById(id);
-        log.info("User deleted: " + id);
+    }
+
+    @Override
+    public UserDto update(UserDto userDto) {
+        User user = UserMapper.INSTANCE.toUser(userDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return UserMapper.INSTANCE.toUserDto(userRepository.save(user));
     }
 
 }

@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import es.ies.puerto.api.dto.BiomeDto;
-import es.ies.puerto.api.dto.DimensionDto;
+
 import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.api.dto.MobDto;
 import es.ies.puerto.api.dto.PlayerDto;
