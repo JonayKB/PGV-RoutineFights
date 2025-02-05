@@ -9,8 +9,10 @@ import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import es.ies.puerto.api.dto.PlayerDto;
+@SpringBootTest
 
 class ItemTest {
     private static final String NAME = "name";

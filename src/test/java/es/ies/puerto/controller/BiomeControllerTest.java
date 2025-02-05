@@ -16,6 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
@@ -25,7 +26,7 @@ import es.ies.puerto.model.entity.Dimension;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IDimensionRepository;
 import es.ies.puerto.services.v3.ItemService;
-
+@SpringBootTest
 class BiomeControllerTest {
     IBiomeController iBiomeController;
 

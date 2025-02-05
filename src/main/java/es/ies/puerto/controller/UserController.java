@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +22,13 @@ import es.ies.puerto.model.repository.IUserRepository;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import es.ies.puerto.model.entity.User;
+
 @Transactional
 @Controller
 public class UserController implements IUserController {
     private IUserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public IUserRepository getIUserRepository() {
@@ -43,8 +47,10 @@ public class UserController implements IUserController {
         List<UserDto> userDtos = new ArrayList<>();
 
         for (User user : users) {
+
             userDtos.add(UserMapper.INSTANCE.toUserDto(user));
         }
+
 
         return userDtos;
     }
@@ -55,7 +61,10 @@ public class UserController implements IUserController {
         if (!userOptional.isPresent()) {
             return new UserDto();
         }
-        return UserMapper.INSTANCE.toUserDto(userOptional.get());
+        UserDto userDto = UserMapper.INSTANCE.toUserDto(userOptional.get());
+
+
+        return userDto;
     }
 
     public UserDto findByUsername(String username) {
@@ -63,12 +72,15 @@ public class UserController implements IUserController {
         if (!userOptional.isPresent()) {
             return null;
         }
-        return UserMapper.INSTANCE.toUserDto(userOptional.get());
+        UserDto userDto = UserMapper.INSTANCE.toUserDto(userOptional.get());
+
+        return userDto;
     }
 
     @Override
     public UserDto save(UserDto userDto) {
         User user = UserMapper.INSTANCE.toUser(userDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return UserMapper.INSTANCE.toUserDto(userRepository.save(user));
     }
 
@@ -80,6 +92,7 @@ public class UserController implements IUserController {
     @Override
     public UserDto update(UserDto userDto) {
         User user = UserMapper.INSTANCE.toUser(userDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return UserMapper.INSTANCE.toUserDto(userRepository.save(user));
     }
 

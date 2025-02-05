@@ -2,6 +2,7 @@ package es.ies.puerto.services.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,11 +28,14 @@ public class AuthService {
     @Autowired
     private UserController userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDto user) {
         if (userService.findByUsername(user.getUsername()) != null) {
             UserDto response = userService.findByUsername(user.getUsername());
-            if (response.getPassword().equals(user.getPassword())) {
+            if (passwordEncoder.matches(user.getPassword(), response.getPassword())) {
                 try {
                     return ResponseEntity
                             .ok(jwtService.generateToken(response.getUsername(), response.getRol().getName()));
@@ -45,8 +49,6 @@ public class AuthService {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserDto user) {
-        System.out.println(user);
-        System.out.println(userService.findByUsername(user.getUsername()));
         if (userService.findByUsername(user.getUsername()) == null) {
             UserDto newUser = new UserDto();
             newUser.setUsername(user.getUsername());

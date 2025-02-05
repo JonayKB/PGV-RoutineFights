@@ -82,7 +82,6 @@ public class BiomeService {
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public BiomeDto save(@RequestBody BiomeDto entity) {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
         return iBiomeController.save(entity);
     }
 

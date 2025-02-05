@@ -20,9 +20,27 @@
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<lombok.version>1.18.30</lombok.version>
+
+		<sonar.dependencyCheck.basePath>
+			${project.basedir}/owasp-dependency-check-logs
+		</sonar.dependencyCheck.basePath>
+		<sonar.dependencyCheck.htmlReportPath>
+			${sonar.dependencyCheck.basePath}/dependency-check-report.html
+		</sonar.dependencyCheck.htmlReportPath>
+		<sonar.dependencyCheck.jsonReportPath>
+			${sonar.dependencyCheck.basePath}/dependency-check-report.json
+		</sonar.dependencyCheck.jsonReportPath>
+		<sonar.dependencyCheck.summarize>true</sonar.dependencyCheck.summarize>
+
+		<sonar.coverage.exclusions>**/controller/debug/**/*</sonar.coverage.exclusions>
+
+		<sonar.exclusions>src/test/**/*</sonar.exclusions>
+		<sonar.sources>src,pom.xml</sonar.sources>
+		<sonar.test.inclusions>src/test/**/*</sonar.test.inclusions>
+		<sonar.tests>src</sonar.tests>
 	</properties>
 	<dependencies>
-	<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
@@ -120,6 +138,11 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.9.1.2184</version>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
@@ -212,5 +235,43 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>sonarReports</id>
 
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.owasp</groupId>
+						<artifactId>dependency-check-maven</artifactId>
+						<version>6.5.3</version>
+
+						<configuration>
+							<mavenSettingsProxyId>https-p</mavenSettingsProxyId>
+							<outputDirectory>${sonar.dependencyCheck.basePath}</outputDirectory>
+
+							<formats>
+								<format>html</format>
+								<format>json</format>
+							</formats>
+						</configuration>
+
+						<executions>
+							<execution>
+								<id>generate-dependency-check-report</id>
+
+								<goals>
+									<goal>aggregate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

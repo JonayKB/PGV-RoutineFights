@@ -13,10 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.controller.interfaces.IBiomeController;
 import es.ies.puerto.services.v3.BiomeService;
+@SpringBootTest
 
 class BiomeServiceV1Test {
     @Mock

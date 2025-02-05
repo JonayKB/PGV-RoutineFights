@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +55,10 @@ public class UserService {
      */
     @GetMapping
     public List<UserDto> getAll() {
-        return iUserController.findAll();
+        return iUserController.findAll().stream().map(user -> {
+            user.setPassword("HIDDEN");
+            return user;
+        }).toList();
     }
 
     /**
@@ -65,7 +69,9 @@ public class UserService {
      */
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable(name = "id") final int id) {
-        return iUserController.findById(id);
+        UserDto user = iUserController.findById(id);
+        user.setPassword("HIDDEN");
+        return user;
     }
 
     /**
@@ -75,13 +81,21 @@ public class UserService {
      * @return UserDto
      */
     @PostMapping
-    public UserDto save(@RequestBody UserDto entity) {
-        return iUserController.save(entity);
+    public ResponseEntity<?> save(@RequestBody UserDto entity) {
+        try {
+            return ResponseEntity.ok(iUserController.save(entity));
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 
     @PutMapping
-    public UserDto update(@RequestBody UserDto entity) {
-        return iUserController.update(entity);
+    public ResponseEntity<?> update(@RequestBody UserDto entity) {
+        try {
+            return ResponseEntity.ok(iUserController.update(entity));
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 
     /**
@@ -90,7 +104,12 @@ public class UserService {
      * @param id user id
      */
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable(name = "id") final int id) {
-        iUserController.deleteById(id);
+    public ResponseEntity<?> deleteById(@PathVariable(name = "id") final int id) {
+        try {
+            iUserController.deleteById(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 }
