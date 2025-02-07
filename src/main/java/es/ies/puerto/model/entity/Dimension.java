@@ -14,7 +14,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.util.Objects;
-
+/**
+ * Dimension
+ */
 @Entity()
 @Table(name = "Dimensions")
 public class Dimension implements Serializable {

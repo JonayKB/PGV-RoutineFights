@@ -5,7 +5,9 @@ import java.util.List;
 import es.ies.puerto.api.dto.PlayerDto;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
-
+/**
+ * IPlayerController
+ */
 public interface IPlayerController {
     /**
      * Get the IPlayerRepository

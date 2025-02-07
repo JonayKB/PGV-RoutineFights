@@ -11,7 +11,9 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
+/**
+ * SwaggerConfig
+ */
 @Configuration
 @OpenAPIDefinition(info = @Info(title = "Api Instituto", version = "v1"))
 public class SwaggerConfig {

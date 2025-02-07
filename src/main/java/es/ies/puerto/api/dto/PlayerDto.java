@@ -2,7 +2,9 @@ package es.ies.puerto.api.dto;
 
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * PlayerDto
+ */
 public class PlayerDto {
     private Integer id;
     private String nickname;

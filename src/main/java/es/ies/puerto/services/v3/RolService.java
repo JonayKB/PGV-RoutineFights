@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-@RestController
+/**
+ * RolService
+ */
+@RestController("RolServiceV3")
 @RequestMapping("/api/v3/roles")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
-
 public class RolService {
     IRolController iRolController;
 
@@ -87,6 +88,12 @@ public class RolService {
         }
     }
 
+    /**
+     * Update a role
+     * 
+     * @param entity RolDto
+     * @return RolDto
+     */
     @PutMapping
     public ResponseEntity<?> update(@RequestBody RolDto entity) {
         try {

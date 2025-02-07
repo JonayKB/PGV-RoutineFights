@@ -8,7 +8,9 @@ import org.mapstruct.Named;
 import es.ies.puerto.model.entity.Item;
 import es.ies.puerto.model.entity.Mob;
 import es.ies.puerto.model.entity.Player;
-
+/**
+ * ItemUtilities
+ */
 public interface ItemUtilities {
     @Named("getMobsIds")
     default List<Integer> getMobsIds(Item item) {

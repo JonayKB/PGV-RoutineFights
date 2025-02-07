@@ -18,11 +18,12 @@ import es.ies.puerto.model.entity.User;
 import es.ies.puerto.security.JwtService;
 import es.ies.puerto.services.v3.UserService;
 
+/**
+ * AuthService
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1")
-
-
 public class AuthService {
     @Autowired
     private JwtService jwtService;
@@ -33,6 +34,12 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Login
+     * 
+     * @param user to login
+     * @return token
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDto user) {
         if (userService.findByUsername(user.getUsername()) != null) {
@@ -44,11 +51,20 @@ public class AuthService {
                 } catch (Exception e) {
                     return ResponseEntity.status(400).body(e.getMessage());
                 }
+            } else {
+                return ResponseEntity.status(400).body("Incorrect password");
             }
+        } else {
+            return ResponseEntity.status(400).body("This user not exists");
         }
-        return ResponseEntity.status(401).build();
     }
 
+    /**
+     * Register
+     * 
+     * @param user to register
+     * @return token
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserDto user) {
         if (userService.findByUsername(user.getUsername()) == null) {
@@ -63,9 +79,9 @@ public class AuthService {
                 return ResponseEntity.status(400).body(e.getMessage());
 
             }
+        }else{
+            return ResponseEntity.status(400).body("This user already exists");
         }
-        return ResponseEntity.status(401).build();
-
     }
 
 }

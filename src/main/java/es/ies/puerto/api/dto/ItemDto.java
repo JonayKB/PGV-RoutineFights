@@ -2,7 +2,9 @@ package es.ies.puerto.api.dto;
 
 import java.util.List;
 import java.util.Objects;
-
+/**
+ * ItemDto
+ */
 public class ItemDto {
     private Integer id;
     private String name;

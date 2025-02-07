@@ -1,5 +1,7 @@
 package es.ies.puerto.api.dto;
-
+/**
+ * RolDto
+ */
 public class RolDto {
     private Integer id;
     private String name;

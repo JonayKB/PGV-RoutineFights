@@ -15,7 +15,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.util.Objects;
-
+/**
+ * Biome
+ */
 @Entity()
 @Table(name = "Biomes")
 public class Biome implements Serializable {
@@ -30,43 +32,84 @@ public class Biome implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Dimension dimension;
 
+    /**
+     * Constructor
+     */
     public Biome() {
     }
 
+    /**
+     * Constructor
+     * @param id of the biome
+     * @param name of the biome
+     * @param spawnMobs which spawns in that biome
+     */
     public Biome(Integer id, String name, Set<Mob> spawnMobs) {
         this.id = id;
         this.name = name;
         this.spawnMobs = spawnMobs;
     }
 
+    /**
+     * Get the dimension
+     * @return the dimension
+     */
     public Dimension getDimension() {
         return this.dimension;
     }
 
+    /**
+     * Set the dimension
+     * @param dimension the dimension
+     */
     public void setDimension(Dimension dimension) {
         this.dimension = dimension;
     }
 
+    /**
+     * Get the id
+     * @return the id
+     */
     public Integer getId() {
         return this.id;
     }
 
+    /**
+     * Set the id
+     * @param id the id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Get the name
+     * @return the name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Set the name
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the spawn mobs
+     * @return the spawn mobs
+     */
     public Set<Mob> getSpawnMobs() {
         return this.spawnMobs;
     }
 
+    /**
+     * Set the spawn mobs
+     * @param spawnMobs the spawn mobs
+     */
     public void setSpawnMobs(Set<Mob> spawnMobs) {
         this.spawnMobs = spawnMobs;
     }

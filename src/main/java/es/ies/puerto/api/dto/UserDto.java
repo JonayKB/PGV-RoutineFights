@@ -13,7 +13,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-
+/**
+ * ItemDto
+ */
 public class UserDto  {
 
 

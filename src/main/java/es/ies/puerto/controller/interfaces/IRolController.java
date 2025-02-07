@@ -4,7 +4,9 @@ import java.util.List;
 
 import es.ies.puerto.api.dto.RolDto;
 import es.ies.puerto.model.repository.IRolRepository;
-
+/**
+ * IRolController
+ */
 public interface IRolController {
     /**
      * Get the IRolRepository

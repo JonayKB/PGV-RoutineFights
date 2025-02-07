@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
-
+/**
+ * JwtService
+ */
 @Service
 public class JwtService {
 
     @Value("${jwt.secret}")
-    private String secret;
+    private String secret = "secret";
 
     @Value("${jwt.expiration}")
     private long expiration = 9876543210L;

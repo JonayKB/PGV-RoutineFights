@@ -5,7 +5,9 @@ import org.mapstruct.factory.Mappers;
 
 import es.ies.puerto.api.dto.DimensionDto;
 import es.ies.puerto.model.entity.Dimension;
-
+/**
+ * DimensionMapper
+ */
 @Mapper(uses = { BiomeMapper.class })
 public interface DimensionMapper {
     DimensionMapper INSTANCE = Mappers.getMapper(DimensionMapper.class);

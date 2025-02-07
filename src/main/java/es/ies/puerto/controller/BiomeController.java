@@ -16,6 +16,9 @@ import es.ies.puerto.model.entity.Dimension;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IDimensionRepository;
 import lombok.extern.java.Log;
+/**
+ * BiomeController
+ */
 @Transactional
 @Controller
 public class BiomeController implements IBiomeController {

@@ -109,7 +109,7 @@ public class UserControllerTest {
         UserDto savedDto = userController.save(inputDto);
         Assertions.assertNotNull(savedDto);
         Assertions.assertEquals("john", savedDto.getUsername());
-        Assertions.assertEquals(encodedPassword, savedDto.getPassword());
+        Assertions.assertEquals("HIDDEN", savedDto.getPassword());
     }
     
     @Test

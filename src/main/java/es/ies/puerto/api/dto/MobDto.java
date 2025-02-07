@@ -3,7 +3,9 @@ package es.ies.puerto.api.dto;
 import java.util.List;
 import java.util.Set;
 import java.util.Objects;
-
+/**
+ * MobDto
+ */
 public class MobDto {
     private Integer id;
     private String name;
