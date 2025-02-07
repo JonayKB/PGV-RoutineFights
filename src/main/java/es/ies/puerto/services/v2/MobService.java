@@ -1,4 +1,4 @@
-package es.ies.puerto.services.v3;
+package es.ies.puerto.services.v2;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * MobService
  */
-@RestController("MobServiceV3")
-@RequestMapping("/api/v3/mobs")
+@RestController("MobServiceV2")
+@RequestMapping("/api/v2/mobs")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 
 public class MobService {
@@ -70,35 +70,4 @@ public class MobService {
         return iMobController.findById(id);
     }
 
-    /**
-     * Save a mob
-     * 
-     * @param entity mob to save
-     * @return MobDto
-     */
-    @PostMapping
-    public MobDto save(@RequestBody MobDto entity) {
-        return iMobController.save(entity);
-    }
-
-    /**
-     * Update a mob
-     * 
-     * @param entity mob to update
-     * @return MobDto
-     */
-    @PutMapping
-    public MobDto update(@RequestBody MobDto entity) {
-        return iMobController.update(entity);
-    }
-
-    /**
-     * Delete a mob by id
-     * 
-     * @param id mob id
-     */
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable(name = "id") final int id) {
-        iMobController.deleteById(id);
-    }
 }

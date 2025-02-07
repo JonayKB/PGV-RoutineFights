@@ -1,4 +1,4 @@
-package es.ies.puerto.services.v3;
+package es.ies.puerto.services.v2;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * DimensionService
  */
-@RestController("DimensionServiceV3")
-@RequestMapping("/api/v3/dimensions")
+@RestController("DimensionServiceV2")
+@RequestMapping("/api/v2/dimensions")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
 public class DimensionService {
     IDimensionController iDimensionController;
@@ -75,35 +75,4 @@ public class DimensionService {
         return iDimensionController.findById(id);
     }
 
-    /**
-     * Save a dimension
-     * 
-     * @param entity DimensionDto
-     * @return DimensionDto
-     */
-    @PostMapping
-    public DimensionDto save(@RequestBody DimensionDto entity) {
-        return iDimensionController.save(entity);
-    }
-
-    /**
-     * Update a dimension
-     * 
-     * @param entity DimensionDto
-     * @return DimensionDto
-     */
-    @PutMapping
-    public DimensionDto update(@RequestBody DimensionDto entity) {
-        return iDimensionController.update(entity);
-    }
-
-    /**
-     * Delete a dimension by id
-     * 
-     * @param id dimension id
-     */
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable(name = "id") final int id) {
-        iDimensionController.deleteById(id);
-    }
 }

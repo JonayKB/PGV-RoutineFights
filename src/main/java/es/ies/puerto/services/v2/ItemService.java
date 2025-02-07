@@ -1,4 +1,4 @@
-package es.ies.puerto.services.v3;
+package es.ies.puerto.services.v2;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * ItemService
  */
-@RestController("ItemServiceV3")
-@RequestMapping("/api/v3/items")
+@RestController("ItemServiceV2")
+@RequestMapping("/api/v2/items")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 public class ItemService {
     IItemController iItemController;
@@ -65,36 +65,5 @@ public class ItemService {
         return iItemController.findById(id);
     }
 
-    /**
-     * Save an item
-     * 
-     * @param entity ItemDto
-     * @return ItemDto
-     */
-    @PostMapping
-    public ItemDto save(@RequestBody ItemDto entity) {
-        return iItemController.save(entity);
-    }
-
-    /**
-     * Update an item
-     * 
-     * @param entity ItemDto
-     * @return ItemDto
-     */
-    @PutMapping
-    public ItemDto update(@RequestBody ItemDto entity) {
-        return iItemController.update(entity);
-    }
-
-    /**
-     * Delete an item by id
-     * 
-     * @param id item id
-     */
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable(name = "id") final int id) {
-        iItemController.deleteById(id);
-    }
 
 }

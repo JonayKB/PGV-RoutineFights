@@ -14,7 +14,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-
+/**
+ * Player
+ */
 @Entity()
 @Table(name = "Players")
 public class Player implements Serializable {

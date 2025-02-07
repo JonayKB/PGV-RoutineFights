@@ -5,7 +5,9 @@ import java.util.List;
 import es.ies.puerto.api.dto.BiomeDto;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IDimensionRepository;
-
+/**
+ * IBiomeController
+ */
 public interface IBiomeController {
     /**
      * Get the IBiomeRepository
@@ -58,6 +60,12 @@ public interface IBiomeController {
      */
     public BiomeDto save(BiomeDto biomeDto);
 
+    /**
+     * Update a biome
+     * 
+     * @param biomeDto BiomeDto
+     * @return BiomeDto
+     */
     public BiomeDto update(BiomeDto biomeDto);
 
     /**

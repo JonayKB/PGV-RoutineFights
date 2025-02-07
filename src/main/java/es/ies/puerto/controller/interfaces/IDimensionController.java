@@ -5,7 +5,9 @@ import java.util.List;
 import es.ies.puerto.api.dto.DimensionDto;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IDimensionRepository;
-
+/**
+ * IDimensionController
+ */
 public interface IDimensionController {
     /**
      * Get the IDimensionRepository

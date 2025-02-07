@@ -19,6 +19,9 @@ import es.ies.puerto.model.repository.IDimensionRepository;
 import es.ies.puerto.model.repository.IRolRepository;
 import lombok.extern.java.Log;
 import es.ies.puerto.model.entity.Rol;
+/**
+ * RolController
+ */
 @Transactional
 @Controller
 public class RolController implements IRolController {

@@ -13,7 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+/**
+ * User
+ */
 @Entity()
 @Table(name = "Users")
 public class User implements Serializable {

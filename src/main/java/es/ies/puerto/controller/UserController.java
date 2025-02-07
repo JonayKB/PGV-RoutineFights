@@ -23,6 +23,9 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import es.ies.puerto.model.entity.User;
 
+/**
+ * UserController
+ */
 @Transactional
 @Controller
 public class UserController implements IUserController {
@@ -47,10 +50,9 @@ public class UserController implements IUserController {
         List<UserDto> userDtos = new ArrayList<>();
 
         for (User user : users) {
-
+            user.setPassword("HIDDEN");
             userDtos.add(UserMapper.INSTANCE.toUserDto(user));
         }
-
 
         return userDtos;
     }
@@ -62,7 +64,7 @@ public class UserController implements IUserController {
             return new UserDto();
         }
         UserDto userDto = UserMapper.INSTANCE.toUserDto(userOptional.get());
-
+        userDto.setPassword("HIDDEN");
 
         return userDto;
     }
@@ -73,6 +75,7 @@ public class UserController implements IUserController {
             return null;
         }
         UserDto userDto = UserMapper.INSTANCE.toUserDto(userOptional.get());
+        userDto.setPassword("HIDDEN");
 
         return userDto;
     }
@@ -81,7 +84,9 @@ public class UserController implements IUserController {
     public UserDto save(UserDto userDto) {
         User user = UserMapper.INSTANCE.toUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return UserMapper.INSTANCE.toUserDto(userRepository.save(user));
+        UserDto userDto2 = UserMapper.INSTANCE.toUserDto(userRepository.save(user));
+        userDto2.setPassword("HIDDEN");
+        return userDto2;
     }
 
     @Override

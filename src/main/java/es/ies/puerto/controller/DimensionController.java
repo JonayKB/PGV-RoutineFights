@@ -19,6 +19,9 @@ import es.ies.puerto.model.entity.Dimension;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IDimensionRepository;
 import lombok.extern.java.Log;
+/**
+ * DimensionController
+ */
 @Transactional
 @Controller
 public class DimensionController implements IDimensionController {

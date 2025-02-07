@@ -6,7 +6,9 @@ import es.ies.puerto.api.dto.MobDto;
 import es.ies.puerto.model.repository.IBiomeRepository;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
-
+/**
+ * IMobController
+ */
 public interface IMobController {
     /**
      * Get the IBiomeRepository
@@ -32,7 +34,7 @@ public interface IMobController {
     /**
      * Set the IMobRepository
      * 
-     * @param iMobRepository IMobRepository
+     * @param iItemController iItemController
      */
     public void setIItemRepository(IItemRepository iItemController);
 

@@ -4,7 +4,9 @@ import java.util.List;
 
 import es.ies.puerto.api.dto.UserDto;
 import es.ies.puerto.model.repository.IUserRepository;
-
+/**
+ * IUserController
+ */
 public interface IUserController {
     /**
      * Get the IUserRepository

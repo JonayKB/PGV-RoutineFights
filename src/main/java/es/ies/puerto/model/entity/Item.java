@@ -13,7 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-
+/**
+ * Item
+ */
 @Entity()
 @Table(name = "Items")
 public class Item implements Serializable {

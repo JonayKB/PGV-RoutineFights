@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_routinefights
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1q2w3e4r
+      MYSQL_DATABASE: RoutineFights
+      MYSQL_USER: jonaykb
+      MYSQL_PASSWORD: 1q2w3e4r
+    networks:
+      - newNerwork
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+    
+  routinefights:
+    image: jonaykb/pgv-routinefights
+    container_name: routinefights
+    restart: always
+    networks:
+      - newNerwork
+    depends_on:
+      - mysql
+    ports:
+      - "8000:8000"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/RoutineFights?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=jonaykb
+      - SPRING_DATASOURCE_PASSWORD=1q2w3e4r
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+
+volumes:
+  mysql_data:
+networks:
+  newNerwork:

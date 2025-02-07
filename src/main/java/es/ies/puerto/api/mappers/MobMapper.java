@@ -11,7 +11,9 @@ import org.mapstruct.factory.Mappers;
 import es.ies.puerto.api.dto.MobDto;
 import es.ies.puerto.model.entity.Biome;
 import es.ies.puerto.model.entity.Mob;
-
+/**
+ * MobMapper
+ */
 @Mapper(uses = { ItemMapper.class })
 public interface MobMapper {
     MobMapper INSTANCE = Mappers.getMapper(MobMapper.class);

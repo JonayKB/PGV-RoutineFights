@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-@RestController
+/**
+ * UserService
+ */
+@RestController("UserServiceV3")
 @RequestMapping("/api/v3/users")
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE })
 public class UserService {
@@ -89,6 +91,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Update a user
+     * 
+     * @param entity UserDto
+     * @return UserDto
+     */
     @PutMapping
     public ResponseEntity<?> update(@RequestBody UserDto entity) {
         try {

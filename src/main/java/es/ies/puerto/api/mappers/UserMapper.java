@@ -7,7 +7,9 @@ import org.mapstruct.factory.Mappers;
 
 import es.ies.puerto.api.dto.UserDto;
 import es.ies.puerto.model.entity.User;
-
+/**
+ * UserMapper
+ */
 @Mapper(uses={RolMapper.class})
 public interface UserMapper {
     

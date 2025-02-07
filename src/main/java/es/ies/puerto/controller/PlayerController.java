@@ -18,6 +18,9 @@ import es.ies.puerto.model.entity.Player;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
 import lombok.extern.java.Log;
+/**
+ * PlayerController
+ */
 @Transactional
 @Controller
 public class PlayerController implements IPlayerController {

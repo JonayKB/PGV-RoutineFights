@@ -1,4 +1,4 @@
-package es.ies.puerto.services.v3;
+package es.ies.puerto.services.v2;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * BiomeService
  */
-@RestController("BiomeServiceV3")
-@RequestMapping("/api/v3/biomes")
+@RestController("BiomeServiceV2")
+@RequestMapping("/api/v2/biomes")
 @CrossOrigin(origins = "*", methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE})
 public class BiomeService {
     IBiomeController iBiomeController;
@@ -75,36 +75,5 @@ public class BiomeService {
         return iBiomeController.findById(id);
     }
 
-    /**
-     * Save a biome
-     * 
-     * @param entity BiomeDto
-     * @return BiomeDto
-     */
-    @PostMapping
-    public BiomeDto save(@RequestBody BiomeDto entity) {
-        return iBiomeController.save(entity);
-    }
 
-    /**
-     * Update a biome
-     * 
-     * @param entity BiomeDto
-     * @return BiomeDto
-     */
-    @PutMapping
-    public BiomeDto update(@RequestBody BiomeDto entity) {
-        return iBiomeController.update(entity);
-    }
-
-
-    /**
-     * Delete a biome by id
-     * 
-     * @param id biome id
-     */
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable(name = "id") final int id) {
-        iBiomeController.deleteById(id);
-    }
 }

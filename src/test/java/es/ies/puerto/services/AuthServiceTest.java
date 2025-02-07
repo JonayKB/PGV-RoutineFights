@@ -43,7 +43,7 @@ public class AuthServiceTest {
         when(userService.findByUsername("user")).thenReturn(null);
         UserDto user = new UserDto();
         user.setUsername("user");
-        assert (authService.login(user).getStatusCode() == HttpStatusCode.valueOf(401));
+        assert (authService.login(user).getStatusCode() == HttpStatusCode.valueOf(400));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class AuthServiceTest {
         user.setUsername("user");
         user.setPassword("password");
         when(userService.findByUsername("user")).thenReturn(null);
-        assertEquals(authService.login(user).getStatusCode(), HttpStatusCode.valueOf(401));
+        assertEquals(authService.login(user).getStatusCode(), HttpStatusCode.valueOf(400));
     }
     @Test
     void loginTestErrorInvalidPassword(){
@@ -91,7 +91,7 @@ public class AuthServiceTest {
         userDB.setPassword("password");
         when(userService.findByUsername("user")).thenReturn(userDB);
         when(passwordEncoder.matches("password", "password")).thenReturn(false);
-        assertEquals(authService.login(user).getStatusCode(), HttpStatusCode.valueOf(401));
+        assertEquals(authService.login(user).getStatusCode(), HttpStatusCode.valueOf(400));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class AuthServiceTest {
         user.setUsername("user");
         user.setPassword("password");
         when(userService.findByUsername("user")).thenReturn(new UserDto());
-        assertEquals(authService.register(user).getStatusCode(), HttpStatusCode.valueOf(401));
+        assertEquals(authService.register(user).getStatusCode(), HttpStatusCode.valueOf(400));
     }
 
     

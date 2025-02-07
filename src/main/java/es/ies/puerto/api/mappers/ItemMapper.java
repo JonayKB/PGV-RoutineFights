@@ -5,7 +5,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.model.entity.Item;
-
+/**
+ * ItemMapper
+ */
 @Mapper
 public interface ItemMapper extends ItemUtilities {
     ItemMapper INSTANCE = Mappers.getMapper(ItemMapper.class);

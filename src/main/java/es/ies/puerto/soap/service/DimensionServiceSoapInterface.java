@@ -10,7 +10,9 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
-
+/**
+ * BiomeServiceSoapInterface
+ */
 @WebService()
 public interface DimensionServiceSoapInterface {
 

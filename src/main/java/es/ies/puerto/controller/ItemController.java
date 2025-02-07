@@ -16,6 +16,9 @@ import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
 import lombok.extern.java.Log;
+/**
+ * ItemController
+ */
 @Transactional
 @Controller
 public class ItemController implements IItemController {

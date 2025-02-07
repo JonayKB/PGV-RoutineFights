@@ -6,7 +6,9 @@ import es.ies.puerto.api.dto.ItemDto;
 import es.ies.puerto.model.repository.IItemRepository;
 import es.ies.puerto.model.repository.IMobRepository;
 import es.ies.puerto.model.repository.IPlayerRepository;
-
+/**
+ * IItemController
+ */
 public interface IItemController {
     /**
      * Get the IItemRepository
