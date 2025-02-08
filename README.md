@@ -29,48 +29,52 @@ services/         # Lógica de negocio y endpoints principales
 
 ## Endpoints Disponibles
 
+### Seguridad
+- **POST /api/v1/login**: Obtener el token asociado a un usuario
+- **POST /api/v1/register**: Crear un nuevo usuario.
+
 ### Biomes
-- **GET /api/v1/biomes**: Obtiene todos los biomas.
-- **GET /api/v1/biomes/{id}**: Obtiene un bioma por su ID.
-- **POST /api/v1/biomes**: Crea un nuevo bioma.
-- **DELETE /api/v1/biomes/{id}**: Elimina un bioma por su ID.
+- **GET /api/v3/biomes**: Obtiene todos los biomas.
+- **GET /api/v3/biomes/{id}**: Obtiene un bioma por su ID.
+- **POST /api/v13/biomes**: Crea un nuevo bioma.
+- **DELETE /api/v3/biomes/{id}**: Elimina un bioma por su ID.
 
 ### Dimensions
-- **GET /api/v1/dimensions**: Obtiene todas las dimensiones.
-- **GET /api/v1/dimensions/{id}**: Obtiene una dimensión por su ID.
-- **POST /api/v1/dimensions**: Crea una nueva dimensión.
-- **DELETE /api/v1/dimensions/{id}**: Elimina una dimensión por su ID.
+- **GET /api/v3/dimensions**: Obtiene todas las dimensiones.
+- **GET /api/v3/dimensions/{id}**: Obtiene una dimensión por su ID.
+- **POST /api/v3/dimensions**: Crea una nueva dimensión.
+- **DELETE /api/v3/dimensions/{id}**: Elimina una dimensión por su ID.
 
 ### Players
-- **GET /api/v1/players**: Obtiene todos los jugadores.
-- **GET /api/v1/players/{id}**: Obtiene un jugador por su ID.
-- **POST /api/v1/players**: Crea un nuevo jugador.
-- **DELETE /api/v1/players/{id}**: Elimina un jugador por su ID.
+- **GET /api/v3/players**: Obtiene todos los jugadores.
+- **GET /api/v3/players/{id}**: Obtiene un jugador por su ID.
+- **POST /api/v3/players**: Crea un nuevo jugador.
+- **DELETE /api/v3/players/{id}**: Elimina un jugador por su ID.
 
 ### Mobs
-- **GET /api/v1/mobs**: Obtiene todos los mobs.
-- **GET /api/v1/mobs/{id}**: Obtiene un mob por su ID.
-- **POST /api/v1/mobs**: Crea un nuevo mob.
-- **DELETE /api/v1/mobs/{id}**: Elimina un mob por su ID.
+- **GET /api/v3/mobs**: Obtiene todos los mobs.
+- **GET /api/v3/mobs/{id}**: Obtiene un mob por su ID.
+- **POST /api/v3/mobs**: Crea un nuevo mob.
+- **DELETE /api/v3/mobs/{id}**: Elimina un mob por su ID.
 
 ### Items
-- **GET /api/v1/items**: Obtiene todos los ítems.
-- **GET /api/v1/items/{id}**: Obtiene un item por su ID.
-- **POST /api/v1/items**: Crea un nuevo ítem.
-- **DELETE /api/v1/items/{id}**: Elimina un item por su ID.
+- **GET /api/v3/items**: Obtiene todos los ítems.
+- **GET /api/v3/items/{id}**: Obtiene un item por su ID.
+- **POST /api/v3/items**: Crea un nuevo ítem.
+- **DELETE /api/v3/items/{id}**: Elimina un item por su ID.
 
 ### Users
-- **GET /api/v1/users**: Obtiene todos los usuarios.
-- **GET /api/v1/users/{id}**: Obtiene un usuario por su ID.
-- **POST /api/v1/users**: Crea un nuevo usuario.
-- **DELETE /api/v1/users/{id}**: Elimina un user por su ID.
+- **GET /api/v3/users**: Obtiene todos los usuarios.
+- **GET /api/v3/users/{id}**: Obtiene un usuario por su ID.
+- **POST /api/v3/users**: Crea un nuevo usuario.
+- **DELETE /api/v3/users/{id}**: Elimina un user por su ID.
 
 
 ### Roles
-- **GET /api/v1/roles**: Obtiene todos los roles.
-- **GET /api/v1/roles/{id}**: Obtiene un rol por su ID.
-- **POST /api/v1/roles**: Crea un nuevo rol.
-- **DELETE /api/v1/roles/{id}**: Elimina un rol por su ID.
+- **GET /api/v3/roles**: Obtiene todos los roles.
+- **GET /api/v3/roles/{id}**: Obtiene un rol por su ID.
+- **POST /api/v3/roles**: Crea un nuevo rol.
+- **DELETE /api/v3/roles/{id}**: Elimina un rol por su ID.
 
 ## Ejemplo de Lógica en el Servicio: Guardar un Jugador
 
@@ -97,53 +101,16 @@ public PlayerDto save(PlayerDto playerDto) {
 }
 ```
 
-### Explicación
+## Explicación
 1. **Conversión DTO a Entidad**: Se utiliza `PlayerMapper` para convertir `PlayerDto` a una entidad `Player`.
 2. **Asociación con Ítems**: Busca los ítems por ID y los vincula al jugador.
 3. **Persistencia**: Guarda el jugador y retorna el objeto convertido nuevamente a DTO.
 
-## Requisitos para Correr el Proyecto
-- Java 11+
-- Maven 3.6+
-- Base de datos compatible con JPA (ejemplo: MySQL, H2, PostgreSQL)
-He añadido un apartado sobre tecnologías basándome en las dependencias y configuraciones que has proporcionado. Aquí está el texto actualizado:
 
----
-## Estructura de la Base de Datos
-![Base de datos](image.png)
----
-## Tecnologías Utilizadas 💻
 
-El proyecto utiliza las siguientes tecnologías y herramientas:
-
-- **Java 17** ☕: Lenguaje principal para el desarrollo del proyecto.
-- **Spring Boot 3.3.0** 🚀: Framework para crear aplicaciones Java rápidas y robustas.
-  - *Spring Data JPA*: Para interactuar con la base de datos mediante ORM.
-  - *Spring Web*: Para la creación de endpoints REST.
-  - *SpringDoc OpenAPI* 📄: Para documentar y probar la API con Swagger UI.
-- **MapStruct 1.5.5** 🗺️: Biblioteca para mapear automáticamente entidades a DTOs.
-- **MySQL 8.0.22** 🗄️: Base de datos principal del proyecto.
-- **Jacoco** 📊: Herramienta para medir la cobertura de pruebas.
-- **Maven** 📦: Sistema de gestión de dependencias y compilación.
-- **Tomcat** 🐱: Servidor embebido para ejecutar la aplicación.
-
-Estas herramientas trabajan en conjunto para garantizar un desarrollo eficiente, organizado y con buenas prácticas.
-
----
-
-### Configuración
-1. Configura el archivo `application.properties` para conectar con tu base de datos:
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/minecraft
-spring.datasource.username=root
-spring.datasource.password=password
-spring.jpa.hibernate.ddl-auto=update
-```
-
-2. Compila y ejecuta el proyecto:
-
+## Uso
+1. Ejecutar el docker compose:
 ```bash
-mvn spring-boot:run
+docker-compose up -d
 ```
 
