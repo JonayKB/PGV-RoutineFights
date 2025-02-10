@@ -50,7 +50,6 @@ public class UserController implements IUserController {
         List<UserDto> userDtos = new ArrayList<>();
 
         for (User user : users) {
-            user.setPassword("HIDDEN");
             userDtos.add(UserMapper.INSTANCE.toUserDto(user));
         }
 
@@ -64,7 +63,6 @@ public class UserController implements IUserController {
             return new UserDto();
         }
         UserDto userDto = UserMapper.INSTANCE.toUserDto(userOptional.get());
-        userDto.setPassword("HIDDEN");
 
         return userDto;
     }
@@ -75,7 +73,6 @@ public class UserController implements IUserController {
             return null;
         }
         UserDto userDto = UserMapper.INSTANCE.toUserDto(userOptional.get());
-        userDto.setPassword("HIDDEN");
 
         return userDto;
     }
@@ -85,7 +82,6 @@ public class UserController implements IUserController {
         User user = UserMapper.INSTANCE.toUser(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserDto userDto2 = UserMapper.INSTANCE.toUserDto(userRepository.save(user));
-        userDto2.setPassword("HIDDEN");
         return userDto2;
     }
 
